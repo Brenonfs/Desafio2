@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")// preciso alterar isso
+}
+model School {
+  id                Int       @id @default(autoincrement())
+  schoolCode        String    @unique
+  address           String    @unique
+  password          String
+  profileName       String
+  teachers          Teacher[]
+  schoolClass       SchoolClass[]
+  students          Student[]
+  @@map("schools")
+}
+
+model SchoolClass {
+  id                Int        @id @default(autoincrement())
+  discipline        String
+  year              Int
+  numberClass       Int
+  schoolClassCode   String     @unique
+  dayOfWeek         String
+  time              String  // corrigir esse Time para time em todos os codigos depois
+  schoolId          Int
+  teacherId         Int?
+  school            School     @relation(fields: [schoolId], references: [id])
+  teacher           Teacher?   @relation(fields: [teacherId], references: [id])
+  students          Student[]  @relation("ClassToStudent")
+  @@map("schoolClasses")
+}
+
+
+model Teacher {
+  id                Int       @id @default(autoincrement())
+  teacherCode       String    @unique
+  password          String
+  profileName       String
+  discipline        String
+  schoolClass       SchoolClass[]
+  schoolId          Int
+  school            School    @relation(fields: [schoolId], references: [id])
+  @@map("teachers")
+}
+
+model Student {
+  id                Int       @id @default(autoincrement())
+  registration      String    @unique
+  password          String
+  profileName       String
+  schoolClass       SchoolClass[]   @relation("ClassToStudent")
+  schoolId          Int
+  school            School    @relation(fields: [schoolId], references: [id])
+  @@map("students")
+}
