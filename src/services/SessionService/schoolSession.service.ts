@@ -6,14 +6,14 @@ import { jwtConfig } from '../../configs/auth';
 import { UnauthorizedError } from '../../helpers/api-erros';
 import { SessionRepository } from '../../repositories/session.repository';
 
-export class CreateSessionService {
+export class SchoolSessionService {
   private sessionRepository: SessionRepository;
 
   constructor() {
     this.sessionRepository = new SessionRepository();
   }
-  async execute(name: string, password: string) {
-    const schoolExist = await this.sessionRepository.findByName(name);
+  async execute(schoolCode: string, password: string) {
+    const schoolExist = await this.sessionRepository.findBySchoolCode(schoolCode);
 
     if (!schoolExist) {
       throw new UnauthorizedError('Nome e/ou senha incorreta');
@@ -32,7 +32,7 @@ export class CreateSessionService {
       });
       return {
         id: schoolExist.id,
-        name: schoolExist.name,
+        schoolCode: schoolExist.schoolCode,
         token,
       };
     }

@@ -30,7 +30,7 @@ export class TeacherController {
       throw new BadRequestError(`Não foi possível criar Professor(a).`);
     }
     const result = await this.createTeacherService.execute(
-      validatedTeacherSchema.data.name,
+      validatedTeacherSchema.data.teacherCode,
       validatedTeacherSchema.data.password,
       validatedTeacherSchema.data.discipline,
       validatedTeacherSchema.data.profileName,
@@ -59,7 +59,7 @@ export class TeacherController {
     if (!validatedTeacherSchema.success) {
       throw new BadRequestError(`Não foi possível deleta Professor(a).`);
     }
-    const result = await this.deleteTeacherService.execute(validatedTeacherSchema.data.name, schoolId);
+    const result = await this.deleteTeacherService.execute(validatedTeacherSchema.data.teacherCode, schoolId);
     res.json({ result });
   };
   list = async (req: Request, res: Response) => {

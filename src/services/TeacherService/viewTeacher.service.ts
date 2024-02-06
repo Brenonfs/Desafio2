@@ -10,6 +10,7 @@ class ViewTeacherService {
 
   async execute(profileName: string, schoolId: number) {
     const teacherExists = await this.teacherRepository.findByProfile(profileName, schoolId);
+
     if (!teacherExists) {
       throw new BadRequestError(`Não há professor(a) com o nome '${profileName}'.`);
     }

@@ -34,6 +34,22 @@ export class SchoolClassRepository {
     });
     return classExists;
   }
+  async findBySchoolClassCode(schoolClassCode: string, schoolId: number) {
+    const classExists = await prisma.schoolClass.findUnique({
+      where: { schoolId, schoolClassCode },
+      select: {
+        id: true,
+        schoolClassCode: true,
+        discipline: true,
+        year: true,
+        dayOfWeek: true,
+        time: true,
+        schoolId: true,
+        teacherId: true,
+      },
+    });
+    return classExists;
+  }
 
   async listSchoolClass(schoolId: number) {
     const classExists = await prisma.schoolClass.findMany({
@@ -66,5 +82,12 @@ export class SchoolClassRepository {
       },
     });
     return updateSchoolClass;
+  }
+  async updateTeacher(teacherId: number, schoolClassCode: string, schoolId: number) {
+    const updateTeacher = await prisma.schoolClass.update({
+      where: { schoolClassCode, schoolId },
+      data: { teacherId },
+    });
+    return updateTeacher;
   }
 }

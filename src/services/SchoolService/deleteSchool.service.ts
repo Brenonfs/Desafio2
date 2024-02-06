@@ -8,14 +8,14 @@ class DeleteSchoolService {
     this.schoolRepository = new SchoolRepository();
   }
 
-  async execute(name: string) {
-    const deletedSchool = await this.schoolRepository.deleteSchool(name);
+  async execute(schoolCode: string) {
+    const deletedSchool = await this.schoolRepository.deleteSchool(schoolCode);
 
     if (!deletedSchool) {
-      throw new BadRequestError(`Escola com o nome '${name}' não encontrada.`);
+      throw new BadRequestError(`Escola com o nome '${schoolCode}' não encontrada.`);
     }
     return {
-      message: `A escola com o nome '${name}' foi deletada com sucesso.`,
+      message: `A escola com o nome '${schoolCode}' foi deletada com sucesso.`,
     };
   }
 }

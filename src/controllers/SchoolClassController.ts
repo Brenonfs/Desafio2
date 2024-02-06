@@ -33,7 +33,9 @@ export class SchoolClassController {
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
+
     const validatedSchoolClassSchema = schoolClassCreateSchema.safeParse(req.body);
+
     if (!validatedSchoolClassSchema.success) {
       throw new BadRequestError(`Não foi possível criar a classe.`);
     }

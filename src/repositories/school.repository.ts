@@ -4,16 +4,25 @@ import { hash } from 'bcryptjs';
 import { prisma } from '../database';
 
 export class SchoolRepository {
-  async saveSchool(schoolCode: string, password: string, address: string, profileName: string) {
+  async saveSchool(
+    schoolCode: string,
+    password: string,
+    city: string,
+    state: string,
+    street: string,
+    cep: string,
+    neighborhood: string,
+    profileName: string,
+  ) {
     const hashedPassword = await hash(password, 8);
     const school = await prisma.school.create({
-      data: { schoolCode, password: hashedPassword, address, profileName },
+      data: { schoolCode, password: hashedPassword, city, state, street, cep, neighborhood, profileName },
     });
     return school;
   }
-  async findByAddres(address: string) {
+  async findByCep(cep: string) {
     const schoolExists = await prisma.school.findUnique({
-      where: { address },
+      where: { cep },
     });
     return schoolExists;
   }
@@ -21,7 +30,10 @@ export class SchoolRepository {
     const schoolExists = await prisma.school.findMany({
       select: {
         id: true,
-        address: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
         profileName: true,
       },
     });
@@ -33,7 +45,10 @@ export class SchoolRepository {
       select: {
         id: true,
         schoolCode: true,
-        address: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
         profileName: true,
       },
     });
@@ -46,7 +61,10 @@ export class SchoolRepository {
       where: { profileName },
       select: {
         id: true,
-        address: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
         profileName: true,
       },
     });

@@ -9,12 +9,12 @@ class CreateTeacherService {
     this.teacherRepository = new TeacherRepository();
   }
 
-  async execute(name: string, password: string, profileName: string, discipline: string, schoolId: number) {
-    const teacherExists = await this.teacherRepository.findByName(name);
+  async execute(teacherCode: string, password: string,  discipline: string, profileName: string, schoolId: number) {
+    const teacherExists = await this.teacherRepository.findByName(teacherCode, schoolId);
     if (teacherExists) {
       throw new UnauthorizedError(`Este nome já está cadastrado.`);
     }
-    const teacher = await this.teacherRepository.saveTeacher(name, password, profileName, discipline, schoolId);
+    const teacher = await this.teacherRepository.saveTeacher(teacherCode, password, profileName, discipline, schoolId);
     return teacher;
   }
 }

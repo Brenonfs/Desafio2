@@ -9,7 +9,11 @@ datasource db {
 model School {
   id                Int       @id @default(autoincrement())
   schoolCode        String    @unique
-  address           String    @unique
+  street            String
+  city              String
+  state             String
+  cep               String    @unique
+  neighborhood      String
   password          String
   profileName       String
   teachers          Teacher[]

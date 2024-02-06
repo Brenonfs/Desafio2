@@ -7,8 +7,8 @@ class ListStudentClassService {
     this.studentRepository = new StudentRepository();
   }
 
-  async execute(schoolId: number, name: string) {
-    const student = await this.studentRepository.listStudentClass(schoolId, name);
+  async execute(registration: string, schoolId: number) {
+    const student = await this.studentRepository.listStudentClass(schoolId, registration);
     return student;
   }
 }

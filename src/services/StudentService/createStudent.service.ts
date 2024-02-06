@@ -9,12 +9,12 @@ class CreateStudentService {
     this.studentRepository = new StudentRepository();
   }
 
-  async execute(name: string, password: string, profileName: string, schoolId: number) {
-    const studentExists = await this.studentRepository.findByName(name,schoolId);
+  async execute(registration: string, password: string, profileName: string, schoolId: number) {
+    const studentExists = await this.studentRepository.findByName(registration,schoolId);
     if (studentExists) {
       throw new UnauthorizedError(`Este nome já está cadastrado.`);
     }
-    const student = await this.studentRepository.saveStudent(name, password, profileName, schoolId);
+    const student = await this.studentRepository.saveStudent(registration, password, profileName, schoolId);
     return student;
   }
 }

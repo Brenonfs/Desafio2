@@ -1,9 +1,11 @@
+import { hash } from 'bcryptjs';
 import { prisma } from '../database';
 
 export class StudentRepository {
   async saveStudent(registration: string, password: string, profileName: string, schoolId: number) {
+    const hashedPassword = await hash(password, 8);
     const student = await prisma.student.create({
-      data: { registration, password, schoolId, profileName },
+      data: { registration, password: hashedPassword, schoolId, profileName },
       select: {
         id: true,
         registration: true,
@@ -54,6 +56,7 @@ export class StudentRepository {
         registration: true,
         profileName: true,
         schoolId: true,
+        schoolClass: true,
       },
     });
     return studentExists;
@@ -64,5 +67,24 @@ export class StudentRepository {
       where: { schoolId, registration },
     });
     return !!deleteStudent;
+  }
+
+  async updateStudante(registration: string, idSchoolClass: number, schoolId: number) {
+    const updateStudant = await prisma.student.update({
+      where: { registration, schoolId },
+      data: {
+        schoolClass: {
+          connect: [{ id: idSchoolClass }],
+        },
+      },
+      select: {
+        id: true,
+        registration: true,
+        profileName: true,
+        schoolId: true,
+        schoolClass: true,
+      },
+    });
+    return updateStudant;
   }
 }

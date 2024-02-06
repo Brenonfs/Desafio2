@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 export const teacherCreateSchema = z.object({
-  name: z
+  teacherCode: z
     .string({
-      required_error: 'O  campo "name" está vazio',
-      invalid_type_error: 'O  campo "name" tem caracteres inválidos',
+      required_error: 'O  campo "teacherCode" está vazio',
+      invalid_type_error: 'O  campo "teacherCode" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "password" está muito pequeno' }),
+    .min(3, { message: 'O campo "teacherCode" está muito pequeno' }),
 
   password: z
     .string({
@@ -20,7 +20,7 @@ export const teacherCreateSchema = z.object({
       required_error: 'O  campo "discipline" está vazio',
       invalid_type_error: 'O  campo "discipline" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "address" está muito pequeno' }),
+    .min(3, { message: 'O campo "discipline" está muito pequeno' }),
 
   profileName: z
     .string({
@@ -30,12 +30,12 @@ export const teacherCreateSchema = z.object({
     .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
 export const teacherDeleteSchema = z.object({
-  name: z
+  teacherCode: z
     .string({
-      required_error: 'O  campo "name" está vazio',
-      invalid_type_error: 'O  campo "name" tem caracteres inválidos',
+      required_error: 'O  campo "teacherCode" está vazio',
+      invalid_type_error: 'O  campo "teacherCode" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "password" está muito pequeno' }),
+    .min(3, { message: 'O campo "teacherCode" está muito pequeno' }),
 });
 export const teacherViewSchema = z.object({
   profileName: z

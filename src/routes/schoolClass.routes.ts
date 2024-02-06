@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+import { ensureAuthenticated } from '../middlewares/ensureSchoolAuth';
 import { SchoolClassController } from '../controllers/SchoolClassController';
 
 const schoolClassRoutes = Router();

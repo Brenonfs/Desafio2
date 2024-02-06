@@ -2,7 +2,7 @@ import { BadRequestError } from '../../helpers/api-erros';
 import { SchoolClassRepository } from '../../repositories/schoolClass.repository';
 import { StudentRepository } from '../../repositories/student.repository';
 
-class UpdateSchoolClassService {
+class UpdateStudentService {
   private schoolClassRepository: SchoolClassRepository;
   private studentRepository: StudentRepository;
 
@@ -17,14 +17,16 @@ class UpdateSchoolClassService {
       throw new BadRequestError(`Este aluno não foi encontrado.`);
     }
 
-    const classExists = await this.schoolClassRepository.findByName(schoolClassCode, schoolId);
+    const classExists = await this.schoolClassRepository.findBySchoolClassCode(schoolClassCode, schoolId);
     if (!classExists) {
       throw new BadRequestError(`Esta turma não foi encontrado.`);
     }
 
-    const isStudentInSchoolClass = classExists.students.some((student) => student.registration === registration);
+    const isStudentInSchoolClass = studentExists.schoolClass.some(
+      (classItem) => classItem.schoolClassCode === schoolClassCode,
+    );
     if (isStudentInSchoolClass) {
-      throw new BadRequestError(`Este aluno já está cadastrado nessa turma.`);
+      throw new BadRequestError(`Este aluno já está cadastrado em uma turma com o código '${schoolClassCode}'.`);
     }
 
     const isStudentInOtherSchoolClass = studentExists.schoolClass.some((studentSchoolClass) => {
@@ -39,12 +41,12 @@ class UpdateSchoolClassService {
       throw new BadRequestError(`Este aluno já está cadastrado em outra turma no mesmo dia e horário.`);
     }
 
-    const idStudent = studentExists.id;
+    const idSchoolClass = classExists.id;
 
-    const updatedSchoolClass = await this.schoolClassRepository.updateSchoolClass(idStudent, schoolClassCode, schoolId);
+    const updatedStudent = await this.studentRepository.updateStudante(registration, idSchoolClass, schoolId);
 
-    return updatedSchoolClass;
+    return updatedStudent;
   }
 }
 
-export { UpdateSchoolClassService };
+export { UpdateStudentService };

@@ -8,14 +8,14 @@ class DeleteStudentService {
     this.studentRepository = new StudentRepository();
   }
 
-  async execute(name: string, schoolId: number) {
-    const deleteStudent = await this.studentRepository.deleteStudent(name, schoolId);
+  async execute(registration: string, schoolId: number) {
+    const deleteStudent = await this.studentRepository.deleteStudent(registration, schoolId);
 
     if (!deleteStudent) {
-      throw new BadRequestError(`Aluno(a) com o nome '${name}' não encontrada.`);
+      throw new BadRequestError(`Aluno(a) com o nome '${registration}' não encontrada.`);
     }
     return {
-      message: `Aluno(a) com o nome '${name}' foi deletada com sucesso.`,
+      message: `Aluno(a) com o nome '${registration}' foi deletada com sucesso.`,
     };
   }
 }

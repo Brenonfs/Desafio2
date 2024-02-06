@@ -8,14 +8,14 @@ class DeleteTeacherService {
     this.teacherRepository = new TeacherRepository();
   }
 
-  async execute(name: string, schoolId: number) {
-    const deletedTeacher = await this.teacherRepository.deleteTeacher(name, schoolId);
+  async execute(teacherCode: string, schoolId: number) {
+    const deletedTeacher = await this.teacherRepository.deleteTeacher(teacherCode, schoolId);
 
     if (!deletedTeacher) {
-      throw new BadRequestError(`Professor(a) com o nome '${name}' não encontrada.`);
+      throw new BadRequestError(`Professor(a) com o nome '${teacherCode}' não encontrada.`);
     }
     return {
-      message: `Professor(a) com o nome '${name}' foi deletada com sucesso.`,
+      message: `Professor(a) com o nome '${teacherCode}' foi deletada com sucesso.`,
     };
   }
 }

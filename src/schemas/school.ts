@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 export const schoolCreateSchema = z.object({
-  name: z
+  schoolCode: z
     .string({
-      required_error: 'O  campo "name" está vazio',
-      invalid_type_error: 'O  campo "name" tem caracteres inválidos',
+      required_error: 'O  campo "schoolCode" está vazio',
+      invalid_type_error: 'O  campo "schoolCode" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "password" está muito pequeno' }),
+    .min(3, { message: 'O campo "schoolCode" está muito pequeno' }),
 
   password: z
     .string({
@@ -14,13 +14,12 @@ export const schoolCreateSchema = z.object({
       invalid_type_error: 'O  campo "password" tem caracteres inválidos',
     })
     .min(3, { message: 'O campo "password" está muito pequeno' }),
-
-  address: z
+  cep: z
     .string({
-      required_error: 'O  campo "address" está vazio',
-      invalid_type_error: 'O  campo "address" tem caracteres inválidos',
+      required_error: 'O campo "cep" está vazio',
+      invalid_type_error: 'O campo "cep" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "address" está muito pequeno' }),
+    .length(8, { message: 'O campo "cep" deve ter exatamente 8 dígitos' }),
 
   profileName: z
     .string({
@@ -30,12 +29,12 @@ export const schoolCreateSchema = z.object({
     .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
 export const schoolDeleteSchema = z.object({
-  name: z
+  schoolCode: z
     .string({
-      required_error: 'O  campo "name" está vazio',
-      invalid_type_error: 'O  campo "name" tem caracteres inválidos',
+      required_error: 'O  campo "schoolCode" está vazio',
+      invalid_type_error: 'O  campo "schoolCode" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "password" está muito pequeno' }),
+    .min(3, { message: 'O campo "schoolCode" está muito pequeno' }),
 });
 export const schoolViewSchema = z.object({
   profileName: z

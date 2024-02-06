@@ -13,16 +13,7 @@ class ViewSchoolClassService {
     if (!classExists) {
       throw new BadRequestError(`Não há turma(a) com o nome '${schoolClassCode}'.`);
     }
-    return {
-      id: classExists.id,
-      schoolClassCode: classExists.schoolClassCode,
-      discipline: classExists.discipline,
-      year: classExists.year,
-      dayOfWeek: classExists.dayOfWeek,
-      Time: classExists.Time,
-      schoolId: classExists.schoolId,
-      teacherId: classExists.teacherId,
-    };
+    return classExists;
   }
 }
 export { ViewSchoolClassService };

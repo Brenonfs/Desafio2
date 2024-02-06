@@ -2,7 +2,11 @@
 CREATE TABLE "schools" (
     "id" SERIAL NOT NULL,
     "schoolCode" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
+    "street" TEXT NOT NULL,
+    "city" TEXT NOT NULL,
+    "state" TEXT NOT NULL,
+    "cep" TEXT NOT NULL,
+    "neighborhood" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "profileName" TEXT NOT NULL,
 
@@ -10,7 +14,7 @@ CREATE TABLE "schools" (
 );
 
 -- CreateTable
-CREATE TABLE "classes" (
+CREATE TABLE "schoolClasses" (
     "id" SERIAL NOT NULL,
     "discipline" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
@@ -21,7 +25,7 @@ CREATE TABLE "classes" (
     "schoolId" INTEGER NOT NULL,
     "teacherId" INTEGER,
 
-    CONSTRAINT "classes_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "schoolClasses_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -57,10 +61,10 @@ CREATE TABLE "_ClassToStudent" (
 CREATE UNIQUE INDEX "schools_schoolCode_key" ON "schools"("schoolCode");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "schools_address_key" ON "schools"("address");
+CREATE UNIQUE INDEX "schools_cep_key" ON "schools"("cep");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "classes_schoolClassCode_key" ON "classes"("schoolClassCode");
+CREATE UNIQUE INDEX "schoolClasses_schoolClassCode_key" ON "schoolClasses"("schoolClassCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "teachers_teacherCode_key" ON "teachers"("teacherCode");
@@ -75,10 +79,10 @@ CREATE UNIQUE INDEX "_ClassToStudent_AB_unique" ON "_ClassToStudent"("A", "B");
 CREATE INDEX "_ClassToStudent_B_index" ON "_ClassToStudent"("B");
 
 -- AddForeignKey
-ALTER TABLE "classes" ADD CONSTRAINT "classes_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "schools"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "schoolClasses" ADD CONSTRAINT "schoolClasses_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "schools"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "classes" ADD CONSTRAINT "classes_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "teachers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "schoolClasses" ADD CONSTRAINT "schoolClasses_teacherId_fkey" FOREIGN KEY ("teacherId") REFERENCES "teachers"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "teachers" ADD CONSTRAINT "teachers_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "schools"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -87,7 +91,7 @@ ALTER TABLE "teachers" ADD CONSTRAINT "teachers_schoolId_fkey" FOREIGN KEY ("sch
 ALTER TABLE "students" ADD CONSTRAINT "students_schoolId_fkey" FOREIGN KEY ("schoolId") REFERENCES "schools"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_ClassToStudent" ADD CONSTRAINT "_ClassToStudent_A_fkey" FOREIGN KEY ("A") REFERENCES "classes"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_ClassToStudent" ADD CONSTRAINT "_ClassToStudent_A_fkey" FOREIGN KEY ("A") REFERENCES "schoolClasses"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_ClassToStudent" ADD CONSTRAINT "_ClassToStudent_B_fkey" FOREIGN KEY ("B") REFERENCES "students"("id") ON DELETE CASCADE ON UPDATE CASCADE;

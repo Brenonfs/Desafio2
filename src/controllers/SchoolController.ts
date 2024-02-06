@@ -29,13 +29,14 @@ export class SchoolController {
       throw new BadRequestError(`Não foi possível criar escola.`);
     }
     const result = await this.createSchoolService.execute(
-      validatedSchoolSchema.data.name,
+      validatedSchoolSchema.data.schoolCode,
       validatedSchoolSchema.data.password,
-      validatedSchoolSchema.data.address,
+      validatedSchoolSchema.data.cep,
       validatedSchoolSchema.data.profileName,
     );
     res.json({ result });
   };
+
   view = async (req: Request, res: Response) => {
     const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);
     if (!validatedSchoolSchema.success) {
@@ -44,6 +45,7 @@ export class SchoolController {
     const result = await this.viewSchoolService.execute(validatedSchoolSchema.data.profileName);
     res.json({ result });
   };
+
   delete = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
@@ -53,7 +55,7 @@ export class SchoolController {
     if (!validatedSchoolSchema.success) {
       throw new BadRequestError(`Não foi possível visualizar escola.`);
     }
-    const result = await this.deleteSchoolService.execute(validatedSchoolSchema.data.name);
+    const result = await this.deleteSchoolService.execute(validatedSchoolSchema.data.schoolCode);
     res.json({ result });
   };
   listAdmin = async (req: Request, res: Response) => {
