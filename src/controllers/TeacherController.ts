@@ -70,8 +70,7 @@ export class TeacherController {
   viewTeacherAndSchool = async (req: Request, res: Response) => {
     const schoolId = req.school?.id;
     const teacherId = req.teacher?.id;
-    console.log(schoolId);
-    console.log(teacherId);
+
     if (schoolId === undefined && teacherId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
@@ -100,9 +99,9 @@ export class TeacherController {
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
-    console.log(req.body);
+
     const validatedStudentSchema = teacherUpdateSchema.safeParse(req.body);
-    console.log(validatedStudentSchema);
+
     if (!validatedStudentSchema.success) {
       throw new BadRequestError(`Não foi possível atualizar profesor(a).`);
     }

@@ -9,7 +9,6 @@ class ViewStudentSchoolService {
   }
 
   async execute(registration: string, studentId: number | undefined, schoolId: number | undefined) {
-    console.log(' aqui 1');
     if (studentId !== undefined && schoolId === undefined) {
       // Caso apenas studentId seja fornecido
       const studentExists = await this.studentRepository.findById(studentId);
@@ -18,10 +17,9 @@ class ViewStudentSchoolService {
       if (!registration) {
         throw new BadRequestError('É necessário fornecer um número de registro.');
       }
-      console.log(registration);
-      console.log(schoolId);
+
       const studentExists = await this.studentRepository.findByRegistration(registration, schoolId);
-      console.log(studentExists);
+
       return studentExists;
     } else {
       // Caso ambos ou nenhum dos parâmetros seja fornecido

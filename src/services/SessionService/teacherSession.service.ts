@@ -15,13 +15,11 @@ export class TeacherSessionService {
   async execute(teacherCode: string, password: string) {
     const teacherExist = await this.sessionRepository.findByTeacherCode(teacherCode);
     if (!teacherExist) {
-      console.log('Teacher not found');
       throw new UnauthorizedError('Nome e/ou senha incorreta');
     }
     const passwordMatched = await compare(password, teacherExist.password);
 
     if (!passwordMatched) {
-      console.log('pass not found');
       throw new UnauthorizedError('Nome e/ou senha incorreta');
     }
     if (jwtConfig && jwtConfig.secret !== undefined) {

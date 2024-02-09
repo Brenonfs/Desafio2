@@ -84,16 +84,12 @@ export class StudentController {
     const schoolId = req.school?.id;
     const studentId = req.student?.id;
 
-    console.log(' aqui 2', schoolId);
-    console.log(' aqui 1', studentId);
     if (schoolId === undefined && studentId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
-      console.log(' aqui');
     }
     const validatedStudentSchema = studentViewSchema.safeParse(req.body);
     if (!validatedStudentSchema.success) {
       throw new BadRequestError(`Não foi possível visualizar Aluno(a).`);
-      console.log(' aqui');
     }
     const result = await this.viewStudentSchoolService.execute(
       validatedStudentSchema.data.registration,
