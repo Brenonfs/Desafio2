@@ -12,4 +12,5 @@ teacherRoutes.get('/viewSchool', ensureSchoolAuth, teacherController.viewTeacher
 teacherRoutes.get('/viewTeacher', ensureTeachertAuth, teacherController.viewTeachertByTeacher);
 teacherRoutes.get('/view', ensureSchoolAuth, ensureTeachertAuth, teacherController.viewTeacherAndSchool);
 teacherRoutes.get('/list', ensureSchoolAuth, teacherController.list);
+teacherRoutes.put('/', ensureSchoolAuth, teacherController.update);
 export { teacherRoutes };

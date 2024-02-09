@@ -69,6 +69,13 @@ export class TeacherRepository {
           connect: [{ id: idSchoolClass }],
         },
       },
+      select: {
+        id: true,
+        teacherCode: true,
+        discipline: true,
+        profileName: true,
+        schoolId: true,
+      },
     });
     return updateTeacher;
   }

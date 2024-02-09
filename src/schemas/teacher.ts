@@ -38,3 +38,17 @@ export const teacherViewSchema = z.object({
     })
     .min(3, { message: 'O campo "teacherCode" está muito pequeno' }),
 });
+export const teacherUpdateSchema = z.object({
+  teacherCode: z
+    .string({
+      required_error: 'O  campo "teacherCode" está vazio',
+      invalid_type_error: 'O  campo "teacherCode" tem caracteres inválidos',
+    })
+    .min(3, { message: 'O campo "teacherCode" está muito pequeno' }),
+  schoolClassCode: z
+    .string({
+      required_error: 'O  campo "schoolClassCode" está vazio',
+      invalid_type_error: 'O  campo "schoolClassCode" tem caracteres inválidos',
+    })
+    .min(3, { message: 'O campo "schoolClassCode" está muito pequeno' }),
+});

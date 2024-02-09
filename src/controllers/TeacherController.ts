@@ -4,9 +4,10 @@ import { BadRequestError, UnauthorizedError } from '../helpers/api-erros';
 import { CreateTeacherService } from '../services/TeacherService/createTeacher.service';
 import { ListTeacherService } from '../services/TeacherService/listTeacher.service';
 import { ViewTeacherByTeacherService } from '../services/TeacherService/viewTeacherByTeacher.service';
-import { teacherCreateSchema, teacherViewSchema } from '../schemas/teacher';
+import { teacherCreateSchema, teacherUpdateSchema, teacherViewSchema } from '../schemas/teacher';
 import { ViewTeacherBySchoolService } from '../services/TeacherService/viewTeacherBySchool.service';
 import { ViewTeacherSchoolService } from '../services/TeacherService/viewTeacherSchool.service copy';
+import { UpdateTeacherService } from '../services/TeacherService/updateTeacherservice';
 
 export class TeacherController {
   private createTeacherService: CreateTeacherService;
@@ -14,6 +15,7 @@ export class TeacherController {
   private viewTeacherBySchoolService: ViewTeacherBySchoolService;
   private viewTeacherByTeacherService: ViewTeacherByTeacherService;
   private viewTeacherSchoolService: ViewTeacherSchoolService;
+  private updateTeacherService: UpdateTeacherService;
 
   constructor() {
     this.createTeacherService = new CreateTeacherService();
@@ -21,6 +23,7 @@ export class TeacherController {
     this.viewTeacherBySchoolService = new ViewTeacherBySchoolService();
     this.viewTeacherByTeacherService = new ViewTeacherByTeacherService();
     this.viewTeacherSchoolService = new ViewTeacherSchoolService();
+    this.updateTeacherService = new UpdateTeacherService();
   }
 
   create = async (req: Request, res: Response) => {
@@ -74,7 +77,7 @@ export class TeacherController {
     }
     const validatedStudentSchema = teacherViewSchema.safeParse(req.body);
     if (!validatedStudentSchema.success) {
-      throw new BadRequestError(`Não foi possível visualizar Aluno(a).`);
+      throw new BadRequestError(`Não foi possível visualizar profesor(a).`);
     }
     const result = await this.viewTeacherSchoolService.execute(
       validatedStudentSchema.data.teacherCode,
@@ -90,6 +93,24 @@ export class TeacherController {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
     const result = await this.listTeacherService.execute(schoolId);
+    res.json({ result });
+  };
+  update = async (req: Request, res: Response) => {
+    const schoolId = (req as any).school?.id;
+    if (schoolId === undefined) {
+      throw new UnauthorizedError('Usuário não está autenticado.');
+    }
+    console.log(req.body);
+    const validatedStudentSchema = teacherUpdateSchema.safeParse(req.body);
+    console.log(validatedStudentSchema);
+    if (!validatedStudentSchema.success) {
+      throw new BadRequestError(`Não foi possível atualizar profesor(a).`);
+    }
+    const result = await this.updateTeacherService.execute(
+      validatedStudentSchema.data.teacherCode,
+      validatedStudentSchema.data.schoolClassCode,
+      schoolId,
+    );
     res.json({ result });
   };
 }
