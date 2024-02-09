@@ -29,6 +29,10 @@ class UpdateStudentService {
       throw new BadRequestError(`Este aluno já está cadastrado em uma turma com o código '${schoolClassCode}'.`);
     }
 
+    if (classExists.students.length >= 40) {
+      throw new BadRequestError(`Esta turma já está lotada.`);
+    }
+
     const isStudentInOtherSchoolClass = studentExists.schoolClass.some((studentSchoolClass) => {
       return (
         studentSchoolClass.dayOfWeek === classExists.dayOfWeek &&

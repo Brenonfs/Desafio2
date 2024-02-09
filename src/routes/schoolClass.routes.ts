@@ -1,15 +1,17 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../middlewares/ensureSchoolAuth';
+import { ensureSchoolAuth } from '../middlewares/ensureSchoolAuth';
 import { SchoolClassController } from '../controllers/SchoolClassController';
+import { ensureTeachertAuth } from '../middlewares/ensureTeacherAuth';
+import { ensureStudentAuth } from '../middlewares/ensureStudentAuth';
 
 const schoolClassRoutes = Router();
 
 const schoolClassController = new SchoolClassController();
 
-schoolClassRoutes.post('/', ensureAuthenticated, schoolClassController.create);
-schoolClassRoutes.get('/view', ensureAuthenticated, schoolClassController.view);
-schoolClassRoutes.get('/list', ensureAuthenticated, schoolClassController.list);
-schoolClassRoutes.delete('/', ensureAuthenticated, schoolClassController.delete);
-schoolClassRoutes.put('/update', ensureAuthenticated, schoolClassController.update);
+schoolClassRoutes.post('/', ensureSchoolAuth, schoolClassController.create); // testado
+schoolClassRoutes.get('/view', ensureSchoolAuth, schoolClassController.view); // testado
+schoolClassRoutes.get('/exportTeacher', ensureTeachertAuth, schoolClassController.exportTeacher);
+schoolClassRoutes.get('/exportStudent', ensureStudentAuth, schoolClassController.exportStudent);
+schoolClassRoutes.get('/list', ensureSchoolAuth, schoolClassController.list); // testado
 
 export { schoolClassRoutes };

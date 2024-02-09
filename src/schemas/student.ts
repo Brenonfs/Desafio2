@@ -22,29 +22,22 @@ export const studentCreateSchema = z.object({
     })
     .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
-export const studentDeleteSchema = z.object({
+
+export const studentViewSchema = z.object({
   registration: z
     .string({
       required_error: 'O  campo "registration" está vazio',
       invalid_type_error: 'O  campo "registration" tem caracteres inválidos',
     })
     .min(3, { message: 'O campo "registration" está muito pequeno' }),
-});
-export const studentViewSchema = z.object({
-  profileName: z
-    .string({
-      required_error: 'O  campo "profileName" está vazio',
-      invalid_type_error: 'O  campo "profileName" tem caracteres inválidos',
-    })
-    .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
 export const listclassStudentSchema = z.object({
-  registration: z
+  schoolClassCode: z
     .string({
-      required_error: 'O  campo "registration" está vazio',
-      invalid_type_error: 'O  campo "registration" tem caracteres inválidos',
+      required_error: 'O  campo "schoolClassCode" está vazio',
+      invalid_type_error: 'O  campo "schoolClassCode" tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "registration" está muito pequeno' }),
+    .min(3, { message: 'O campo "schoolClassCode" está muito pequeno' }),
 });
 export const studentUpdateSchema = z.object({
   registration: z

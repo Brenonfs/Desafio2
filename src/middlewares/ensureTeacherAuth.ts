@@ -7,34 +7,38 @@ import { UnauthorizedError } from '../helpers/api-erros';
 declare module 'express-serve-static-core' {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   interface Request {
-    school?: {
+    teacher?: {
       id: number;
     };
   }
 }
 
-const ensureAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+const ensureTeachertAuth = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.school) {
+    const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
-    return next();
-  }
-
-  const [, token] = authHeader.split(' ');
-
-  try {
-    if (jwtConfig && jwtConfig.secret !== undefined) {
-      const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
-      req.school = {
-        id: Number(decodedToken.sub),
-      };
+    if (!authHeader) {
       return next();
-    } else {
-      throw new Error('JWT configuration is not properly set');
     }
-  } catch {
-    throw new UnauthorizedError('JWT Token invalid');
+
+    const [, token] = authHeader.split(' ');
+
+    try {
+      if (jwtConfig && jwtConfig.secret !== undefined) {
+        const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
+        req.teacher = {
+          id: Number(decodedToken.sub),
+        };
+        return next();
+      } else {
+        throw new Error('JWT configuration is not properly set');
+      }
+    } catch {
+      throw new UnauthorizedError('JWT Token invalid');
+    }
+  } else {
+    return next(); // Se req.student já está definido, passa para o próximo middleware
   }
 };
 
-export { ensureAuthenticated };
+export { ensureTeachertAuth };

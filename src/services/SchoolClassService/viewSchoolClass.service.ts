@@ -13,7 +13,16 @@ class ViewSchoolClassService {
     if (!classExists) {
       throw new BadRequestError(`Não há turma(a) com o nome '${schoolClassCode}'.`);
     }
-    return classExists;
+    const studentCount = classExists.students.length;
+    const availableSeats = Math.max(0, 40 - studentCount);
+
+    const classWithStudentCount = {
+      ...classExists,
+      studentCount,
+      availableSeats,
+    };
+
+    return classWithStudentCount;
   }
 }
 export { ViewSchoolClassService };

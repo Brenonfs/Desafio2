@@ -10,7 +10,7 @@ class ListAdminSchoolService {
 
   async execute() {
 
-    const school = await this.schoolRepository.listSchooAdmin();
+    const school = await this.schoolRepository.listSchoolAdmin();
     return school
   }
 }

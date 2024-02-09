@@ -6,28 +6,29 @@ import { jwtConfig } from '../../configs/auth';
 import { UnauthorizedError } from '../../helpers/api-erros';
 import { SessionRepository } from '../../repositories/session.repository';
 
-export class StudentSessionService {
+export class TeacherSessionService {
   private sessionRepository: SessionRepository;
 
   constructor() {
     this.sessionRepository = new SessionRepository();
   }
-  async execute(registration: string, password: string) {
-    const studentExist = await this.sessionRepository.findByRegistration(registration);
-    if (!studentExist) {
+  async execute(teacherCode: string, password: string) {
+    const teacherExist = await this.sessionRepository.findByTeacherCode(teacherCode);
+    if (!teacherExist) {
+      console.log('Teacher not found');
       throw new UnauthorizedError('Nome e/ou senha incorreta');
     }
-    const passwordMatched = await compare(password, studentExist.password);
+    const passwordMatched = await compare(password, teacherExist.password);
 
     if (!passwordMatched) {
+      console.log('pass not found');
       throw new UnauthorizedError('Nome e/ou senha incorreta');
     }
     if (jwtConfig && jwtConfig.secret !== undefined) {
       const { secret, expiresIn } = jwtConfig;
       const token = sign(
         {
-          sub: String(studentExist.id),
-          schoolId: studentExist.schoolId, // Incluindo schoolId como chave separada no payload
+          sub: String(teacherExist.id), // Incluindo schoolId como chave separada no payload
         },
         secret,
         {
@@ -36,9 +37,9 @@ export class StudentSessionService {
       );
 
       return {
-        id: studentExist.id,
-        registration: studentExist.registration,
-        schoolId: studentExist.schoolId,
+        id: teacherExist.id,
+        teacherCode: teacherExist.teacherCode,
+        schoolId: teacherExist.schoolId,
         token,
       };
     }

@@ -1,3 +1,4 @@
+// ensureSchoolAuth.ts
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
@@ -12,8 +13,8 @@ declare module 'express-serve-static-core' {
     };
   }
 }
-
-const ensureAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
+const ensureSchoolAuth = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('hello');
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -37,4 +38,4 @@ const ensureAuthenticated = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-export { ensureAuthenticated };
+export { ensureSchoolAuth };

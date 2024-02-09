@@ -28,14 +28,7 @@ export const schoolCreateSchema = z.object({
     })
     .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
-export const schoolDeleteSchema = z.object({
-  schoolCode: z
-    .string({
-      required_error: 'O  campo "schoolCode" está vazio',
-      invalid_type_error: 'O  campo "schoolCode" tem caracteres inválidos',
-    })
-    .min(3, { message: 'O campo "schoolCode" está muito pequeno' }),
-});
+
 export const schoolViewSchema = z.object({
   profileName: z
     .string({

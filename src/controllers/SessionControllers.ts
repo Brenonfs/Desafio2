@@ -3,14 +3,17 @@ import { BadRequestError } from '../helpers/api-erros';
 import { sessionSchoolSchema, sessionStudentSchema, sessionTeacherSchema } from '../schemas/session';
 import { SchoolSessionService } from '../services/SessionService/schoolSession.service';
 import { StudentSessionService } from '../services/SessionService/studentSession.service';
+import { TeacherSessionService } from '../services/SessionService/teacherSession.service';
 
 export class SessionController {
   private schoolSessionService: SchoolSessionService;
   private studentSessionService: StudentSessionService;
+  private teacherSessionService: TeacherSessionService;
 
   constructor() {
     this.schoolSessionService = new SchoolSessionService();
     this.studentSessionService = new StudentSessionService();
+    this.teacherSessionService = new TeacherSessionService();
   }
 
   sessionSchool = async (req: Request, res: Response) => {
@@ -32,7 +35,7 @@ export class SessionController {
       throw new BadRequestError(`Não foi possível fazer o login.`);
     }
 
-    const result = await this.schoolSessionService.execute(
+    const result = await this.teacherSessionService.execute(
       validatedSessionSchema.data.teacherCode,
       validatedSessionSchema.data.password,
     );

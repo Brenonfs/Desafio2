@@ -1,15 +1,16 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../middlewares/ensureSchoolAuth';
+import { ensureSchoolAuth } from '../middlewares/ensureSchoolAuth';
 import { SchoolController } from '../controllers/SchoolController';
+import { ensureAdminAuth } from '../middlewares/ensureAdminAuth';
 
 const schoolRoutes = Router();
 
 const schoolController = new SchoolController();
 
 schoolRoutes.post('/', schoolController.create);
-schoolRoutes.get('/view', ensureAuthenticated, schoolController.view);
-schoolRoutes.delete('/', ensureAuthenticated, schoolController.delete);
-schoolRoutes.get('/listAdmin', schoolController.listAdmin);
+schoolRoutes.get('/viewPublic', schoolController.viewPublic);
+schoolRoutes.get('/view', ensureSchoolAuth, schoolController.view);
+schoolRoutes.get('/listAdmin', ensureAdminAuth, schoolController.listAdmin);
 schoolRoutes.get('/list', schoolController.listPublic);
 
 export { schoolRoutes };

@@ -9,37 +9,35 @@ declare module 'express-serve-static-core' {
   interface Request {
     student?: {
       id: number;
-      schoolId: number; // Adicionando schoolId ao objeto student
     };
   }
 }
 
 const ensureStudentAuth = async (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+  if (!req.school) {
+    const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
-    return next();
-  }
-
-  const [, token] = authHeader.split(' ');
-
-  try {
-    if (jwtConfig && jwtConfig.secret !== undefined) {
-      console.log('jwt secret', jwtConfig.secret);
-      console.log(token);
-      const decodedToken = verify(token, jwtConfig.secret) as { sub: string; schoolId: number }; // Adicionando schoolId ao tipo do token decodificado
-      console.log('Decoded token:', decodedToken);
-      req.student = {
-        id: Number(decodedToken.sub),
-        schoolId: decodedToken.schoolId, // Incluindo schoolId no objeto student
-      };
-      console.log('schoolId in ensureStudentAuth:', req.student?.schoolId);
+    if (!authHeader) {
       return next();
-    } else {
-      throw new Error('JWT configuration is not properly set');
     }
-  } catch {
-    throw new UnauthorizedError('JWT Token invalid');
+
+    const [, token] = authHeader.split(' ');
+
+    try {
+      if (jwtConfig && jwtConfig.secret !== undefined) {
+        const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
+        req.student = {
+          id: Number(decodedToken.sub),
+        };
+        return next('route');
+      } else {
+        throw new Error('JWT configuration is not properly set');
+      }
+    } catch {
+      throw new UnauthorizedError('JWT Token invalid');
+    }
+  } else {
+    return next();
   }
 };
 

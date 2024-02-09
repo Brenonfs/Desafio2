@@ -16,9 +16,28 @@ export class StudentRepository {
     return student;
   }
 
-  async findByProfileName(profileName: string, schoolId: number) {
-    const studentExists = await prisma.student.findMany({
-      where: { schoolId, profileName },
+  async findById(studentId: number) {
+    const studentExists = await prisma.student.findUnique({
+      where: { id: studentId },
+      select: {
+        id: true,
+        profileName: true,
+        schoolId: true,
+        schoolClass: true,
+      },
+    });
+    return studentExists;
+  }
+  async findByRegistration(registration: string, schoolId: number) {
+    const studentExists = await prisma.student.findUnique({
+      where: { schoolId, registration },
+      select: {
+        id: true,
+        registration: true,
+        profileName: true,
+        schoolId: true,
+        schoolClass: true,
+      },
     });
     return studentExists;
   }
@@ -60,13 +79,6 @@ export class StudentRepository {
       },
     });
     return studentExists;
-  }
-
-  async deleteStudent(registration: string, schoolId: number) {
-    const deleteStudent = await prisma.student.delete({
-      where: { schoolId, registration },
-    });
-    return !!deleteStudent;
   }
 
   async updateStudante(registration: string, idSchoolClass: number, schoolId: number) {

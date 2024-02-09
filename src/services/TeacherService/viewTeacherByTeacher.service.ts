@@ -1,20 +1,20 @@
 import { BadRequestError } from '../../helpers/api-erros';
 import { TeacherRepository } from '../../repositories/teacher.repository';
 
-class ViewTeacherService {
+class ViewTeacherByTeacherService {
   private teacherRepository: TeacherRepository;
 
   constructor() {
     this.teacherRepository = new TeacherRepository();
   }
 
-  async execute(profileName: string, schoolId: number) {
-    const teacherExists = await this.teacherRepository.findByProfile(profileName, schoolId);
+  async execute(teacherId: number) {
+    const teacherExists = await this.teacherRepository.findById(teacherId);
 
     if (!teacherExists) {
-      throw new BadRequestError(`Não há professor(a) com o nome '${profileName}'.`);
+      throw new BadRequestError(`Não há professor(a) com o id '${teacherId}'.`);
     }
     return teacherExists;
   }
 }
-export { ViewTeacherService };
+export { ViewTeacherByTeacherService };

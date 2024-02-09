@@ -8,10 +8,10 @@ class ViewSchoolService {
     this.schoolRepository = new SchoolRepository();
   }
 
-  async execute(profileName: string) {
-    const schoolExists = await this.schoolRepository.findByProfile(profileName);
-    if (!schoolExists || schoolExists.length === 0) {
-      throw new BadRequestError(`Não há escolas com o nome '${profileName}'.`);
+  async execute(schoolId: number) {
+    const schoolExists = await this.schoolRepository.findById(schoolId);
+    if (!schoolExists) {
+      throw new BadRequestError(`Não há escolas com o nome '${schoolId}'.`);
     }
 
     return schoolExists;

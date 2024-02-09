@@ -48,14 +48,7 @@ export const schoolClassCreateSchema = z.object({
     })
     .nullable(),
 });
-export const schoolClassDeleteSchema = z.object({
-  schoolClassCode: z
-    .string({
-      required_error: 'O  campo "schoolClassCode " está vazio',
-      invalid_type_error: 'O  campo "schoolClassCode " tem caracteres inválidos',
-    })
-    .min(3, { message: 'O campo "schoolClassCode " está muito pequeno' }),
-});
+
 export const schoolClassViewSchema = z.object({
   schoolClassCode: z
     .string({

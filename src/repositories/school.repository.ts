@@ -40,7 +40,7 @@ export class SchoolRepository {
 
     return schoolExists;
   }
-  async listSchooAdmin() {
+  async listSchoolAdmin() {
     const schoolExists = await prisma.school.findMany({
       select: {
         id: true,
@@ -70,10 +70,19 @@ export class SchoolRepository {
     });
     return schoolExists;
   }
-  async deleteSchool(schoolCode: string) {
-    const deletedSchool = await prisma.school.delete({
-      where: { schoolCode },
+  async findById(schoolId: number) {
+    const schoolExists = await prisma.school.findUnique({
+      where: { id: schoolId },
+      select: {
+        id: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
+        profileName: true,
+        schoolCode: true,
+      },
     });
-    return !!deletedSchool;
+    return schoolExists;
   }
 }

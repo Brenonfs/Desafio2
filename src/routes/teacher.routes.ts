@@ -1,13 +1,15 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../middlewares/ensureSchoolAuth';
+import { ensureSchoolAuth } from '../middlewares/ensureSchoolAuth';
 import { TeacherController } from '../controllers/TeacherController';
+import { ensureTeachertAuth } from '../middlewares/ensureTeacherAuth';
 
 const teacherRoutes = Router();
 
 const teacherController = new TeacherController();
 
-teacherRoutes.post('/', ensureAuthenticated, teacherController.create);
-teacherRoutes.get('/view', ensureAuthenticated, teacherController.view);
-teacherRoutes.delete('/', ensureAuthenticated, teacherController.delete);
-teacherRoutes.get('/list', ensureAuthenticated, teacherController.list);
+teacherRoutes.post('/', ensureSchoolAuth, teacherController.create);
+teacherRoutes.get('/viewSchool', ensureSchoolAuth, teacherController.viewTeachertBySchool);
+teacherRoutes.get('/viewTeacher', ensureTeachertAuth, teacherController.viewTeachertByTeacher);
+teacherRoutes.get('/view', ensureSchoolAuth, ensureTeachertAuth, teacherController.viewTeacherAndSchool);
+teacherRoutes.get('/list', ensureSchoolAuth, teacherController.list);
 export { teacherRoutes };

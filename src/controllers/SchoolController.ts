@@ -2,25 +2,25 @@
 import { Request, Response } from 'express';
 import { BadRequestError, UnauthorizedError } from '../helpers/api-erros';
 import { CreateSchoolService } from '../services/SchoolService/createSchool.service';
-import { schoolCreateSchema, schoolDeleteSchema, schoolViewSchema } from '../schemas/school';
+import { schoolCreateSchema, schoolViewSchema } from '../schemas/school';
 import { ViewSchoolService } from '../services/SchoolService/viewSchool.service';
 import { ListPublicSchoolService } from '../services/SchoolService/listPublicSchool.service';
-import { DeleteSchoolService } from '../services/SchoolService/deleteSchool.service';
 import { ListAdminSchoolService } from '../services/SchoolService/listAdminSchool.service';
+import { ViewSchoolPublicService } from '../services/SchoolService/viewSchoolPublic.service';
 
 export class SchoolController {
   private createSchoolService: CreateSchoolService;
-  private deleteSchoolService: DeleteSchoolService;
   private listAdminSchoolService: ListAdminSchoolService;
   private listPublicSchoolService: ListPublicSchoolService;
   private viewSchoolService: ViewSchoolService;
+  private viewSchoolPublicService: ViewSchoolPublicService;
 
   constructor() {
     this.createSchoolService = new CreateSchoolService();
-    this.deleteSchoolService = new DeleteSchoolService();
     this.listAdminSchoolService = new ListAdminSchoolService();
     this.listPublicSchoolService = new ListPublicSchoolService();
     this.viewSchoolService = new ViewSchoolService();
+    this.viewSchoolPublicService = new ViewSchoolPublicService();
   }
 
   create = async (req: Request, res: Response) => {
@@ -37,27 +37,23 @@ export class SchoolController {
     res.json({ result });
   };
 
-  view = async (req: Request, res: Response) => {
+  viewPublic = async (req: Request, res: Response) => {
     const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);
     if (!validatedSchoolSchema.success) {
       throw new BadRequestError(`Não foi possível visualizar escola.`);
     }
-    const result = await this.viewSchoolService.execute(validatedSchoolSchema.data.profileName);
+    const result = await this.viewSchoolPublicService.execute(validatedSchoolSchema.data.profileName);
     res.json({ result });
   };
-
-  delete = async (req: Request, res: Response) => {
+  view = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
-    const validatedSchoolSchema = schoolDeleteSchema.safeParse(req.body);
-    if (!validatedSchoolSchema.success) {
-      throw new BadRequestError(`Não foi possível visualizar escola.`);
-    }
-    const result = await this.deleteSchoolService.execute(validatedSchoolSchema.data.schoolCode);
+    const result = await this.viewSchoolService.execute(schoolId);
     res.json({ result });
   };
+
   listAdmin = async (req: Request, res: Response) => {
     // precisa de login do tipo admin
     const result = await this.listAdminSchoolService.execute();

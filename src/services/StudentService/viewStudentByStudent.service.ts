@@ -1,19 +1,19 @@
 import { BadRequestError } from '../../helpers/api-erros';
 import { StudentRepository } from '../../repositories/student.repository';
 
-class ViewStudentService {
+class ViewStudentByStudentSerivce {
   private studentRepository: StudentRepository;
 
   constructor() {
     this.studentRepository = new StudentRepository();
   }
 
-  async execute(profileName: string, schoolId: number) {
-    const studentExists = await this.studentRepository.findByProfileName(profileName, schoolId);
+  async execute(studentId: number) {
+    const studentExists = await this.studentRepository.findById(studentId);
     if (!studentExists) {
-      throw new BadRequestError(`Não há aluno(a) com o nome '${profileName}'.`);
+      throw new BadRequestError(`Não há aluno(a) com o nome '${studentId}'.`);
     }
     return studentExists;
   }
 }
-export { ViewStudentService };
+export { ViewStudentByStudentSerivce };

@@ -10,7 +10,7 @@ class CreateTeacherService {
   }
 
   async execute(teacherCode: string, password: string,  discipline: string, profileName: string, schoolId: number) {
-    const teacherExists = await this.teacherRepository.findByName(teacherCode, schoolId);
+    const teacherExists = await this.teacherRepository.findByTeacherCode(teacherCode, schoolId);
     if (teacherExists) {
       throw new UnauthorizedError(`Este nome já está cadastrado.`);
     }

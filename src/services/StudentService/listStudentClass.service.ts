@@ -1,14 +1,14 @@
-import { StudentRepository } from '../../repositories/student.repository';
+import { SchoolClassRepository } from '../../repositories/schoolClass.repository';
 
 class ListStudentClassService {
-  private studentRepository: StudentRepository;
+  private schoolClassRepository: SchoolClassRepository;
 
   constructor() {
-    this.studentRepository = new StudentRepository();
+    this.schoolClassRepository = new SchoolClassRepository();
   }
 
-  async execute(registration: string, schoolId: number) {
-    const student = await this.studentRepository.listStudentClass(schoolId, registration);
+  async execute(schoolClassCode: string, schoolId: number) {
+    const student = await this.schoolClassRepository.listStudentClass(schoolClassCode, schoolId);
     return student;
   }
 }

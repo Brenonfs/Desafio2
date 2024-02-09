@@ -1,15 +1,16 @@
 import { Router } from 'express';
-import { ensureAuthenticated } from '../middlewares/ensureSchoolAuth';
+import { ensureSchoolAuth } from '../middlewares/ensureSchoolAuth';
 import { StudentController } from '../controllers/StudentController';
 import { ensureStudentAuth } from '../middlewares/ensureStudentAuth';
 const studentRoutes = Router();
 
 const studentController = new StudentController();
 
-studentRoutes.post('/', ensureAuthenticated, studentController.create);
-studentRoutes.get('/', ensureStudentAuth, studentController.view); // vou mexer aqui
-studentRoutes.delete('/', ensureAuthenticated, studentController.delete);
-studentRoutes.get('/list', ensureAuthenticated, studentController.list);
-studentRoutes.get('/listClass', ensureAuthenticated, studentController.listClass);
-studentRoutes.put('/update', ensureAuthenticated, studentController.update);
+studentRoutes.post('/', ensureSchoolAuth, studentController.create);
+studentRoutes.get('/viewSchool', ensureSchoolAuth, studentController.viewStudentBySchool);
+studentRoutes.get('/viewStudent', ensureStudentAuth, studentController.viewStudentByStudent);
+studentRoutes.get('/view', ensureStudentAuth, ensureSchoolAuth, studentController.viewStudentAndSchool);
+studentRoutes.get('/list', ensureSchoolAuth, studentController.listStudent);
+studentRoutes.get('/listClass', ensureSchoolAuth, studentController.listStudentInClass);
+studentRoutes.put('/update', ensureSchoolAuth, studentController.update);
 export { studentRoutes };

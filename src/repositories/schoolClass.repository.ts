@@ -29,7 +29,13 @@ export class SchoolClassRepository {
         time: true,
         schoolId: true,
         teacherId: true,
-        students: true,
+        students: {
+          select: {
+            id: true,
+            registration: true,
+            profileName: true,
+          },
+        },
       },
     });
     return classExists;
@@ -46,6 +52,13 @@ export class SchoolClassRepository {
         time: true,
         schoolId: true,
         teacherId: true,
+        students: {
+          select: {
+            id: true,
+            registration: true,
+            profileName: true,
+          },
+        },
       },
     });
     return classExists;
@@ -57,6 +70,21 @@ export class SchoolClassRepository {
     });
     return classExists;
   }
+  async listStudentClass(schoolClassCode: string, schoolId: number) {
+    const classExists = await prisma.schoolClass.findUnique({
+      where: { schoolClassCode, schoolId },
+      select: {
+        students: {
+          select: {
+            id: true,
+            registration: true,
+            profileName: true,
+          },
+        },
+      },
+    });
+    return classExists;
+  }
 
   // async findByProfile(profileName: string, schoolId: number) {
   //   const teacherExists = await prisma.teacher.findMany({
@@ -64,13 +92,6 @@ export class SchoolClassRepository {
   //   });
   //   return teacherExists;
   // }
-
-  async deleteSchoolClass(schoolClassCode: string, schoolId: number) {
-    const deleteSchoolClass = await prisma.schoolClass.delete({
-      where: { schoolId, schoolClassCode },
-    });
-    return !!deleteSchoolClass;
-  }
 
   async updateSchoolClass(idStudent: number, schoolClassCode: string, schoolId: number) {
     const updateSchoolClass = await prisma.schoolClass.update({
