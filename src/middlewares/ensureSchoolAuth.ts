@@ -14,7 +14,6 @@ declare module 'express-serve-static-core' {
   }
 }
 const ensureSchoolAuth = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('hello');
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {

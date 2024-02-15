@@ -8,8 +8,8 @@ class ListStudentClassService {
   }
 
   async execute(schoolClassCode: string, schoolId: number) {
-    const student = await this.schoolClassRepository.listStudentClass(schoolClassCode, schoolId);
-    return student;
+    // const student = await this.schoolClassRepository.listStudentClass(id);
+    // return student;
   }
 }
 export { ListStudentClassService };

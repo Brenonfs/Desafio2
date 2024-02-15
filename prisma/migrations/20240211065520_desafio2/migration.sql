@@ -6,7 +6,7 @@ CREATE TABLE "schools" (
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "cep" TEXT NOT NULL,
-    "neighborhood" TEXT NOT NULL,
+    "neighborhood" TEXT,
     "password" TEXT NOT NULL,
     "profileName" TEXT NOT NULL,
 
@@ -19,7 +19,6 @@ CREATE TABLE "schoolClasses" (
     "discipline" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
     "numberClass" INTEGER NOT NULL,
-    "schoolClassCode" TEXT NOT NULL,
     "dayOfWeek" TEXT NOT NULL,
     "time" TEXT NOT NULL,
     "schoolId" INTEGER NOT NULL,
@@ -62,9 +61,6 @@ CREATE UNIQUE INDEX "schools_schoolCode_key" ON "schools"("schoolCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "schools_cep_key" ON "schools"("cep");
-
--- CreateIndex
-CREATE UNIQUE INDEX "schoolClasses_schoolClassCode_key" ON "schoolClasses"("schoolClassCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "teachers_teacherCode_key" ON "teachers"("teacherCode");

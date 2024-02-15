@@ -9,9 +9,9 @@ export class SchoolRepository {
     password: string,
     city: string,
     state: string,
-    street: string,
+    street: string | null,
     cep: string,
-    neighborhood: string,
+    neighborhood: string | null,
     profileName: string,
   ) {
     const hashedPassword = await hash(password, 8);

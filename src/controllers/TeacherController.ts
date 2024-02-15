@@ -94,20 +94,19 @@ export class TeacherController {
     const result = await this.listTeacherService.execute(schoolId);
     res.json({ result });
   };
+
   update = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
-
     const validatedStudentSchema = teacherUpdateSchema.safeParse(req.body);
-
     if (!validatedStudentSchema.success) {
       throw new BadRequestError(`Não foi possível atualizar profesor(a).`);
     }
     const result = await this.updateTeacherService.execute(
       validatedStudentSchema.data.teacherCode,
-      validatedStudentSchema.data.schoolClassCode,
+      validatedStudentSchema.data.id,
       schoolId,
     );
     res.json({ result });

@@ -50,13 +50,26 @@ export const schoolClassCreateSchema = z.object({
 });
 
 export const schoolClassViewSchema = z.object({
-  schoolClassCode: z
+  discipline: z
     .string({
-      required_error: 'O  campo "schoolClassCode " está vazio',
-      invalid_type_error: 'O  campo "schoolClassCode " tem caracteres inválidos',
+      required_error: 'O  campo "discipline " está vazio',
+      invalid_type_error: 'O  campo "discipline " tem caracteres inválidos',
     })
-    .min(3, { message: 'O campo "schoolClassCode " está muito pequeno' }),
+    .min(3, { message: 'O campo "discipline " está muito pequeno' }),
+  year: z
+    .number({
+      required_error: 'O  campo "year " está vazio',
+      invalid_type_error: 'O  campo "year " tem caracteres inválidos',
+    })
+    .min(4, { message: 'O campo "year " está muito pequeno' }),
 });
+export const schoolClassViewIDSchema = z.object({
+  id: z.number({
+    required_error: 'O  campo "id " está vazio',
+    invalid_type_error: 'O  campo "id " tem caracteres inválidos',
+  }),
+});
+
 export const schoolClassUpdateSchema = z.object({
   registration: z
     .string({

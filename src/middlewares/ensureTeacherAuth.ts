@@ -14,30 +14,25 @@ declare module 'express-serve-static-core' {
 }
 
 const ensureTeachertAuth = async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.school) {
-    const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization;
 
-    if (!authHeader) {
+  if (!authHeader) {
+    return next();
+  }
+  const [, token] = authHeader.split(' ');
+
+  try {
+    if (jwtConfig && jwtConfig.secret !== undefined) {
+      const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
+      req.teacher = {
+        id: Number(decodedToken.sub),
+      };
       return next();
+    } else {
+      throw new Error('JWT configuration is not properly set');
     }
-
-    const [, token] = authHeader.split(' ');
-
-    try {
-      if (jwtConfig && jwtConfig.secret !== undefined) {
-        const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
-        req.teacher = {
-          id: Number(decodedToken.sub),
-        };
-        return next();
-      } else {
-        throw new Error('JWT configuration is not properly set');
-      }
-    } catch {
-      throw new UnauthorizedError('JWT Token invalid');
-    }
-  } else {
-    return next(); // Se req.student já está definido, passa para o próximo middleware
+  } catch {
+    throw new UnauthorizedError('JWT Token invalid');
   }
 };
 

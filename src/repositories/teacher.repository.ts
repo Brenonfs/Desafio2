@@ -75,6 +75,7 @@ export class TeacherRepository {
         discipline: true,
         profileName: true,
         schoolId: true,
+        schoolClass: true,
       },
     });
     return updateTeacher;

@@ -9,11 +9,11 @@ datasource db {
 model School {
   id                Int       @id @default(autoincrement())
   schoolCode        String    @unique
-  street            String
+  street            String?
   city              String
   state             String
   cep               String    @unique
-  neighborhood      String
+  neighborhood      String?
   password          String
   profileName       String
   teachers          Teacher[]
@@ -27,7 +27,6 @@ model SchoolClass {
   discipline        String
   year              Int
   numberClass       Int
-  schoolClassCode   String     @unique
   dayOfWeek         String
   time              String  // corrigir esse Time para time em todos os codigos depois
   schoolId          Int

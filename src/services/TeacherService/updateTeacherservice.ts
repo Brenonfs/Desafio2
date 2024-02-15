@@ -11,46 +11,32 @@ class UpdateTeacherService {
     this.teacherRepository = new TeacherRepository();
   }
 
-  async execute(teacherCode: string, schoolClassCode: string, schoolId: number) {
+  async execute(teacherCode: string, id: number, schoolId: number) {
     const teacherExists = await this.teacherRepository.findByTeacherCode(teacherCode, schoolId);
     if (!teacherExists) {
       throw new BadRequestError(`Professor(a) não foi encontrado.`);
     }
-
-    const classExists = await this.schoolClassRepository.findBySchoolClassCode(schoolClassCode, schoolId);
+    const classExists = await this.schoolClassRepository.findByID(id);
     if (!classExists) {
       throw new BadRequestError(`Esta turma não foi encontrado.`);
     }
-
-    const isTeacherInSchoolClass = teacherExists.schoolClass.some(
-      (classItem) => classItem.schoolClassCode === schoolClassCode,
-    );
+    const isTeacherInSchoolClass = teacherExists.schoolClass.some((classItem) => classItem.id === id);
     if (isTeacherInSchoolClass) {
-      throw new BadRequestError(`Professor(a) já está cadastrado em uma turma com o código '${schoolClassCode}'.`);
+      throw new BadRequestError(`Professor(a) já está cadastrado nesta turma.`);
     }
-
     const isSTeacherInOtherSchoolClass = teacherExists.schoolClass.some((teacherSchoolClass) => {
       return (
         teacherSchoolClass.dayOfWeek === classExists.dayOfWeek &&
         teacherSchoolClass.time === classExists.time &&
-        teacherSchoolClass.schoolClassCode !== classExists.schoolClassCode
+        teacherSchoolClass.id !== classExists.id
       );
     });
-
     if (isSTeacherInOtherSchoolClass) {
-      throw new BadRequestError(`Este aluno já está cadastrado em outra turma no mesmo dia e horário.`);
+      throw new BadRequestError(`Este professor já está cadastrado em outra turma no mesmo dia e horário.`);
     }
-
     const idSchoolClass = classExists.id;
-
     const updatedTeacher = await this.teacherRepository.updateTeacher(teacherCode, idSchoolClass, schoolId);
-    const updatedSchoolClass = await this.schoolClassRepository.updateTeacher(
-      teacherExists.id,
-      schoolClassCode,
-      schoolId,
-    );
-
-    return { updatedTeacher, updatedSchoolClass };
+    return updatedTeacher;
   }
 }
 

@@ -25,6 +25,7 @@ export class SchoolController {
 
   create = async (req: Request, res: Response) => {
     const validatedSchoolSchema = schoolCreateSchema.safeParse(req.body);
+
     if (!validatedSchoolSchema.success) {
       throw new BadRequestError(`Não foi possível criar escola.`);
     }
@@ -34,10 +35,12 @@ export class SchoolController {
       validatedSchoolSchema.data.cep,
       validatedSchoolSchema.data.profileName,
     );
+
     res.json({ result });
   };
 
   viewPublic = async (req: Request, res: Response) => {
+    console.log(`viewPublic: ` + req.body);
     const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);
     if (!validatedSchoolSchema.success) {
       throw new BadRequestError(`Não foi possível visualizar escola.`);
@@ -59,6 +62,7 @@ export class SchoolController {
     const result = await this.listAdminSchoolService.execute();
     res.json({ result });
   };
+
   listPublic = async (req: Request, res: Response) => {
     const result = await this.listPublicSchoolService.execute();
     res.json({ result });

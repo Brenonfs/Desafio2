@@ -2,7 +2,6 @@ import { prisma } from '../database';
 
 export class SchoolClassRepository {
   async saveSchoolClass(
-    schoolClassCode: string,
     discipline: string,
     year: number,
     numberClass: number,
@@ -12,19 +11,19 @@ export class SchoolClassRepository {
     teacherId: number | null,
   ) {
     const classes = await prisma.schoolClass.create({
-      data: { schoolClassCode, discipline, year, numberClass, dayOfWeek, time, schoolId, teacherId },
+      data: { discipline, year, numberClass, dayOfWeek, time, schoolId, teacherId },
     });
     return classes;
   }
 
-  async findByName(schoolClassCode: string, schoolId: number) {
+  async findByID(id: number) {
     const classExists = await prisma.schoolClass.findUnique({
-      where: { schoolId, schoolClassCode },
+      where: { id },
       select: {
         id: true,
-        schoolClassCode: true,
         discipline: true,
         year: true,
+        numberClass: true,
         dayOfWeek: true,
         time: true,
         schoolId: true,
@@ -40,14 +39,14 @@ export class SchoolClassRepository {
     });
     return classExists;
   }
-  async findBySchoolClassCode(schoolClassCode: string, schoolId: number) {
-    const classExists = await prisma.schoolClass.findUnique({
-      where: { schoolId, schoolClassCode },
+  async findByDisciplineAndYear(discipline: string, year: number, schoolId: number) {
+    const classExists = await prisma.schoolClass.findMany({
+      where: { schoolId, discipline, year },
       select: {
         id: true,
-        schoolClassCode: true,
         discipline: true,
         year: true,
+        numberClass: true,
         dayOfWeek: true,
         time: true,
         schoolId: true,
@@ -63,6 +62,30 @@ export class SchoolClassRepository {
     });
     return classExists;
   }
+
+  // async findBySchoolClassCode(schoolId: number) {
+  //   const classExists = await prisma.schoolClass.findUnique({
+  //     where: { schoolId },
+  //     select: {
+  //       id: true,
+  //       schoolClassCode: true,
+  //       discipline: true,
+  //       year: true,
+  //       dayOfWeek: true,
+  //       time: true,
+  //       schoolId: true,
+  //       teacherId: true,
+  //       students: {
+  //         select: {
+  //           id: true,
+  //           registration: true,
+  //           profileName: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  //   return classExists;
+  // }
 
   async listSchoolClass(schoolId: number) {
     const classExists = await prisma.schoolClass.findMany({
@@ -70,43 +93,36 @@ export class SchoolClassRepository {
     });
     return classExists;
   }
-  async listStudentClass(schoolClassCode: string, schoolId: number) {
-    const classExists = await prisma.schoolClass.findUnique({
-      where: { schoolClassCode, schoolId },
-      select: {
-        students: {
-          select: {
-            id: true,
-            registration: true,
-            profileName: true,
-          },
-        },
-      },
-    });
-    return classExists;
-  }
-
-  // async findByProfile(profileName: string, schoolId: number) {
-  //   const teacherExists = await prisma.teacher.findMany({
-  //     where: { schoolId, profileName },
+  // async listStudentClass(schoolClassCode: string, schoolId: number) {
+  //   const classExists = await prisma.schoolClass.findUnique({
+  //     where: { schoolClassCode, schoolId },
+  //     select: {
+  //       students: {
+  //         select: {
+  //           id: true,
+  //           registration: true,
+  //           profileName: true,
+  //         },
+  //       },
+  //     },
   //   });
-  //   return teacherExists;
+  //   return classExists;
   // }
 
-  async updateSchoolClass(idStudent: number, schoolClassCode: string, schoolId: number) {
-    const updateSchoolClass = await prisma.schoolClass.update({
-      where: { schoolClassCode, schoolId },
-      data: {
-        students: {
-          connect: [{ id: idStudent }],
-        },
-      },
-    });
-    return updateSchoolClass;
-  }
-  async updateTeacher(teacherId: number, schoolClassCode: string, schoolId: number) {
+  // async updateSchoolClass(idStudent: number, schoolClassCode: string, schoolId: number) {
+  //   const updateSchoolClass = await prisma.schoolClass.update({
+  //     where: { schoolClassCode, schoolId },
+  //     data: {
+  //       students: {
+  //         connect: [{ id: idStudent }],
+  //       },
+  //     },
+  //   });
+  //   return updateSchoolClass;
+  // }
+  async updateTeacher(teacherId: number, id: number, schoolId: number) {
     const updateTeacher = await prisma.schoolClass.update({
-      where: { schoolClassCode, schoolId },
+      where: { id, schoolId },
       data: { teacherId },
     });
     return updateTeacher;

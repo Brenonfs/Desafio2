@@ -24,16 +24,10 @@ export class StudentSessionService {
     }
     if (jwtConfig && jwtConfig.secret !== undefined) {
       const { secret, expiresIn } = jwtConfig;
-      const token = sign(
-        {
-          sub: String(studentExist.id),
-          schoolId: studentExist.schoolId, // Incluindo schoolId como chave separada no payload
-        },
-        secret,
-        {
-          expiresIn,
-        },
-      );
+      const token = sign({}, secret, {
+        subject: String(studentExist.id),
+        expiresIn,
+      });
 
       return {
         id: studentExist.id,

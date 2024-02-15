@@ -11,44 +11,34 @@ class UpdateStudentService {
     this.studentRepository = new StudentRepository();
   }
 
-  async execute(registration: string, schoolClassCode: string, schoolId: number) {
-    const studentExists = await this.studentRepository.findByName(registration, schoolId);
+  async execute(registration: string, id: number, schoolId: number) {
+    const studentExists = await this.studentRepository.findByRegistration(registration, schoolId);
     if (!studentExists) {
       throw new BadRequestError(`Este aluno não foi encontrado.`);
     }
-
-    const classExists = await this.schoolClassRepository.findBySchoolClassCode(schoolClassCode, schoolId);
+    const classExists = await this.schoolClassRepository.findByID(id);
     if (!classExists) {
       throw new BadRequestError(`Esta turma não foi encontrado.`);
     }
-
-    const isStudentInSchoolClass = studentExists.schoolClass.some(
-      (classItem) => classItem.schoolClassCode === schoolClassCode,
-    );
+    const isStudentInSchoolClass = studentExists.schoolClass.some((classItem) => classItem.id === id);
     if (isStudentInSchoolClass) {
-      throw new BadRequestError(`Este aluno já está cadastrado em uma turma com o código '${schoolClassCode}'.`);
+      throw new BadRequestError(`Este aluno já está cadastrado nesta turma.`);
     }
-
     if (classExists.students.length >= 40) {
       throw new BadRequestError(`Esta turma já está lotada.`);
     }
-
     const isStudentInOtherSchoolClass = studentExists.schoolClass.some((studentSchoolClass) => {
       return (
         studentSchoolClass.dayOfWeek === classExists.dayOfWeek &&
         studentSchoolClass.time === classExists.time &&
-        studentSchoolClass.schoolClassCode !== classExists.schoolClassCode
+        studentSchoolClass.id !== classExists.id
       );
     });
-
     if (isStudentInOtherSchoolClass) {
       throw new BadRequestError(`Este aluno já está cadastrado em outra turma no mesmo dia e horário.`);
     }
-
     const idSchoolClass = classExists.id;
-
     const updatedStudent = await this.studentRepository.updateStudante(registration, idSchoolClass, schoolId);
-
     return updatedStudent;
   }
 }

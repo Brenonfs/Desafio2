@@ -4,15 +4,17 @@ import { BadRequestError, UnauthorizedError } from '../helpers/api-erros';
 import { CreateSchoolClassService } from '../services/SchoolClassService/createSchoolClass.service';
 import { ListSchoolClassService } from '../services/SchoolClassService/listSchoolClass.service';
 import { ViewSchoolClassService } from '../services/SchoolClassService/viewSchoolClass.service';
-import { schoolClassCreateSchema, schoolClassViewSchema } from '../schemas/schoolClass';
+import { schoolClassCreateSchema, schoolClassViewIDSchema, schoolClassViewSchema } from '../schemas/schoolClass';
 import { ExportSchoolClassOfTeacherService } from '../services/SchoolClassService/exportSchoolClassOfTeacher.service';
 import { ExportSchoolClassOfStudentService } from '../services/SchoolClassService/exportSchoolClassOfStudent.service';
 import { ImportFileService } from '../services/FileService/importFile.service';
+import { ViewByIDSchoolClassService } from '../services/SchoolClassService/viewSchoolClassID.service';
 
 export class SchoolClassController {
   private createSchoolClassService: CreateSchoolClassService;
   private listSchoolClassService: ListSchoolClassService;
   private viewSchoolClassService: ViewSchoolClassService;
+  private viewByIDSchoolClassService: ViewByIDSchoolClassService;
   private exportSchoolClassOfStudentService: ExportSchoolClassOfStudentService;
   private exportSchoolClassOfTeacherService: ExportSchoolClassOfTeacherService;
   private importFileService: ImportFileService;
@@ -21,6 +23,7 @@ export class SchoolClassController {
     this.createSchoolClassService = new CreateSchoolClassService();
     this.listSchoolClassService = new ListSchoolClassService();
     this.viewSchoolClassService = new ViewSchoolClassService();
+    this.viewByIDSchoolClassService = new ViewByIDSchoolClassService();
     this.exportSchoolClassOfStudentService = new ExportSchoolClassOfStudentService();
     this.exportSchoolClassOfTeacherService = new ExportSchoolClassOfTeacherService();
     this.importFileService = new ImportFileService();
@@ -31,7 +34,6 @@ export class SchoolClassController {
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
-
     const validatedSchoolClassSchema = schoolClassCreateSchema.safeParse(req.body);
 
     if (!validatedSchoolClassSchema.success) {
@@ -57,7 +59,23 @@ export class SchoolClassController {
     if (!validatedSchoolClassSchema.success) {
       throw new BadRequestError(`Não foi possível visualizar a classe.`);
     }
-    const result = await this.viewSchoolClassService.execute(validatedSchoolClassSchema.data.schoolClassCode, schoolId);
+    const result = await this.viewSchoolClassService.execute(
+      validatedSchoolClassSchema.data.discipline,
+      validatedSchoolClassSchema.data.year,
+      schoolId,
+    );
+    res.json({ result });
+  };
+  viewClassDetails = async (req: Request, res: Response) => {
+    const schoolId = (req as any).school?.id;
+    if (schoolId === undefined) {
+      throw new UnauthorizedError('Usuário não está autenticado.');
+    }
+    const validatedSchoolClassSchema = schoolClassViewIDSchema.safeParse(req.body);
+    if (!validatedSchoolClassSchema.success) {
+      throw new BadRequestError(`Não foi possível visualizar a classe.`);
+    }
+    const result = await this.viewByIDSchoolClassService.execute(validatedSchoolClassSchema.data.id);
     res.json({ result });
   };
 

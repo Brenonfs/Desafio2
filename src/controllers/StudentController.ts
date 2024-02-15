@@ -5,13 +5,7 @@ import { CreateStudentService } from '../services/StudentService/createStudent.s
 import { ListStudentService } from '../services/StudentService/listStudent.service';
 import { ViewStudentByStudentSerivce } from '../services/StudentService/viewStudentByStudent.service';
 import { ViewStudentBySchoolService } from '../services/StudentService/viewStudentBySchool.service';
-import {
-  listclassStudentSchema,
-  studentCreateSchema,
-  studentUpdateSchema,
-  studentViewSchema,
-} from '../schemas/student';
-import { ListStudentClassService } from '../services/StudentService/listStudentClass.service';
+import { studentCreateSchema, studentUpdateSchema, studentViewSchema } from '../schemas/student';
 import { UpdateStudentService } from '../services/StudentService/updateStudent.service';
 import { ViewStudentSchoolService } from '../services/StudentService/viewStudentSchool.service';
 // import { ExportClassOfStudentService } from '../services/StudentService/exportClassOfStudent.service copy';
@@ -20,7 +14,6 @@ import { ImportFileService } from '../services/FileService/importFile.service';
 export class StudentController {
   private createStudentService: CreateStudentService;
   private listStudentService: ListStudentService;
-  private listStudentClassService: ListStudentClassService;
   private viewStudentByStudentSerivce: ViewStudentByStudentSerivce;
   private viewStudentBySchoolService: ViewStudentBySchoolService;
   private viewStudentSchoolService: ViewStudentSchoolService;
@@ -31,12 +24,10 @@ export class StudentController {
   constructor() {
     this.createStudentService = new CreateStudentService();
     this.listStudentService = new ListStudentService();
-    this.listStudentClassService = new ListStudentClassService();
     this.viewStudentByStudentSerivce = new ViewStudentByStudentSerivce();
     this.viewStudentBySchoolService = new ViewStudentBySchoolService();
     this.viewStudentSchoolService = new ViewStudentSchoolService();
     this.updateStudentService = new UpdateStudentService();
-    // this.exportClassOfStudentService = new ExportClassOfStudentService();
     this.importFileService = new ImportFileService();
   }
 
@@ -99,28 +90,6 @@ export class StudentController {
     res.json({ result });
   };
 
-  // exportClassOfService = async (req: Request, res: Response) => {
-  //   const studentId = req.student?.id;
-  //   const schoolId = req.school?.id;
-  //   if (schoolId === undefined && studentId === undefined) {
-  //     throw new UnauthorizedError('Usuário não está autenticado.');
-  //   }
-  //   const validatedStudentSchema = studentViewSchema.safeParse(req.body);
-  //   if (!validatedStudentSchema.success) {
-  //     throw new BadRequestError(`Não foi possível visualizar Aluno(a).`);
-  //   }
-  //   const key = await this.exportClassOfStudentService.execute(req.body.registration, studentId, schoolId);
-  //   if (key === undefined) {
-  //     throw new BadRequestError('Falha com conexão com AWS S3.');
-  //   }
-
-  //   const excelUrl = await this.importFileService.execute(key);
-  //   if (excelUrl === undefined) {
-  //     throw new BadRequestError('A URL do avatar não foi obtida corretamente.');
-  //   }
-  //   res.json({ excelUrl });
-  // };
-
   listStudent = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
@@ -129,19 +98,19 @@ export class StudentController {
     const result = await this.listStudentService.execute(schoolId);
     res.json({ result });
   };
-
-  listStudentInClass = async (req: Request, res: Response) => {
-    const schoolId = (req as any).school?.id;
-    if (schoolId === undefined) {
-      throw new UnauthorizedError('Usuário não está autenticado.');
-    }
-    const validatedStudentSchema = listclassStudentSchema.safeParse(req.body);
-    if (!validatedStudentSchema.success) {
-      throw new BadRequestError(`Não foi possível visualizar Alunos(as).`);
-    }
-    const result = await this.listStudentClassService.execute(validatedStudentSchema.data.schoolClassCode, schoolId);
-    res.json({ result });
-  };
+  // redundante
+  // listStudentInClass = async (req: Request, res: Response) => {
+  //   const schoolId = (req as any).school?.id;
+  //   if (schoolId === undefined) {
+  //     throw new UnauthorizedError('Usuário não está autenticado.');
+  //   }
+  //   const validatedStudentSchema = listclassStudentSchema.safeParse(req.body);
+  //   if (!validatedStudentSchema.success) {
+  //     throw new BadRequestError(`Não foi possível visualizar Alunos(as).`);
+  //   }
+  //   const result = await this.listStudentClassService.execute(validatedStudentSchema.data.schoolClassCode, schoolId);
+  //   res.json({ result });
+  // };
 
   update = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
@@ -154,7 +123,7 @@ export class StudentController {
     }
     const result = await this.updateStudentService.execute(
       validatedStudentSchema.data.registration,
-      validatedStudentSchema.data.schoolClassCode,
+      validatedStudentSchema.data.id,
       schoolId,
     );
     res.json({ result });

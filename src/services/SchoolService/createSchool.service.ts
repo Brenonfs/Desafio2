@@ -11,14 +11,23 @@ class CreateSchoolService {
   }
 
   async execute(schoolCode: string, password: string,cep: string, profileName: string) {
-    const schoolExists = await this.schoolRepository.findByCep(cep);
-    const cepResult = await cepPromise(cep);
 
+    const schoolExists = await this.schoolRepository.findByCep(cep);
+
+    let cepResult;
+    try {
+      cepResult = await cepPromise(cep);
+    } catch (cepError) {
+      console.log('Erro ao obter o CEP:');
+      throw new Error('Ocorreu um erro ao obter o CEP.');
+    }
     if (schoolExists) {
+      console.log("ja tem o cep")
       throw new UnauthorizedError(`Este endereco ja está cadastrado.`);
     }
+    console.log("não tem o cep")
 
-    const school = await this.schoolRepository.saveSchool(schoolCode, password, cepResult.city, cepResult.state, cepResult.street, cepResult.cep,cepResult.neighborhood, profileName);
+    const school = await this.schoolRepository.saveSchool(schoolCode, password, cepResult.city, cepResult.state, cepResult.street, cep,cepResult.neighborhood, profileName);
     return {
       id: school.id,
       schoolCode: school.schoolCode,
@@ -26,6 +35,7 @@ class CreateSchoolService {
       state: school.state,
       street: school.street,
       cep: school.cep,
+      neighborhood: school.neighborhood,
       profileName:school.profileName,
     };
   }
