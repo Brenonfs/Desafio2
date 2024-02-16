@@ -11,16 +11,19 @@ class UpdateTeacherService {
     this.teacherRepository = new TeacherRepository();
   }
 
-  async execute(teacherCode: string, id: number, schoolId: number) {
+  async execute(teacherCode: string, classId: number, schoolId: number) {
     const teacherExists = await this.teacherRepository.findByTeacherCode(teacherCode, schoolId);
     if (!teacherExists) {
       throw new BadRequestError(`Professor(a) não foi encontrado.`);
     }
-    const classExists = await this.schoolClassRepository.findByID(id);
+    if (!classId) {
+      throw new BadRequestError(`Este id não foi encontrado.`);
+    }
+    const classExists = await this.schoolClassRepository.findByID(classId);
     if (!classExists) {
       throw new BadRequestError(`Esta turma não foi encontrado.`);
     }
-    const isTeacherInSchoolClass = teacherExists.schoolClass.some((classItem) => classItem.id === id);
+    const isTeacherInSchoolClass = teacherExists.schoolClass.some((classItem) => classItem.id === classId);
     if (isTeacherInSchoolClass) {
       throw new BadRequestError(`Professor(a) já está cadastrado nesta turma.`);
     }

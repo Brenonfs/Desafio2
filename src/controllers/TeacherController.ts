@@ -104,11 +104,11 @@ export class TeacherController {
     if (!validatedStudentSchema.success) {
       throw new BadRequestError(`Não foi possível atualizar profesor(a).`);
     }
-    const result = await this.updateTeacherService.execute(
-      validatedStudentSchema.data.teacherCode,
-      validatedStudentSchema.data.id,
-      schoolId,
-    );
+    const classId = +req.params.id;
+    if (isNaN(classId)) {
+      throw new BadRequestError(`O parâmetro 'id' não é um número válido.`);
+    }
+    const result = await this.updateTeacherService.execute(validatedStudentSchema.data.teacherCode, classId, schoolId);
     res.json({ result });
   };
 }

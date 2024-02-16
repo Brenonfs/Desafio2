@@ -6,6 +6,7 @@ import { router } from './routes';
 
 dotenv.config();
 const app = express();
+
 // app.use((req: Request, res: Response, next: NextFunction) => {
 //   console.log('Acesso ao roteador detectado:', req.method, req.url);
 //   next();

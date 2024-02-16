@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.59% </span>
+                <span class="strong">76.61% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>91/122</span>
+                <span class='fraction'>95/124</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.28% </span>
+                <span class="strong">40.74% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/28</span>
+                <span class='fraction'>11/27</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.59% </span>
+                <span class="strong">76.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>91/122</span>
+                <span class='fraction'>95/124</span>
             </div>
         
             
@@ -185,7 +185,9 @@
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -256,9 +258,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -267,6 +266,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -277,17 +279,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -313,7 +317,7 @@ import { BadRequestError, UnauthorizedError } from '../helpers/api-erros';
 import { CreateSchoolClassService } from '../services/SchoolClassService/createSchoolClass.service';
 import { ListSchoolClassService } from '../services/SchoolClassService/listSchoolClass.service';
 import { ViewSchoolClassService } from '../services/SchoolClassService/viewSchoolClass.service';
-import { schoolClassCreateSchema, schoolClassViewIDSchema, schoolClassViewSchema } from '../schemas/schoolClass';
+import { schoolClassCreateSchema, schoolClassViewSchema } from '../schemas/schoolClass';
 import { ExportSchoolClassOfTeacherService } from '../services/SchoolClassService/exportSchoolClassOfTeacher.service';
 import { ExportSchoolClassOfStudentService } from '../services/SchoolClassService/exportSchoolClassOfStudent.service';
 import { ImportFileService } from '../services/FileService/importFile.service';
@@ -376,15 +380,15 @@ export class SchoolClassController {
     res.json({ result });
   };
   viewClassDetails = async (req: Request, res: Response) =&gt; {
+    console.log('to aqui');
     const schoolId = (req as any).school<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d;
     if (schoolId === undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError('Usuário não está autenticado.');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const validatedSchoolClassSchema = schoolClassViewIDSchema.safeParse(req.body);
-    if (!validatedSchoolClassSchema.success) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Não foi possível visualizar a classe.`);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-    const result = await this.viewByIDSchoolClassService.execute(validatedSchoolClassSchema.data.id);
+&nbsp;
+    const classId = +req.params.id;
+&nbsp;
+    const result = await this.viewByIDSchoolClassService.execute(classId);
     res.json({ result });
   };
 &nbsp;
@@ -397,6 +401,7 @@ export class SchoolClassController {
 <span class="cstat-no" title="statement not covered" >    res.json({ result });</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
   exportTeacher = async (req: Request, res: Response) =&gt; {
+    console.log('acessein');
     const teacherId = (req as any).teacher<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d;
     if (teacherId === undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError('Usuário não está autenticado.');</span>
@@ -413,6 +418,7 @@ export class SchoolClassController {
     res.json({ excelUrl });
   };
   exportStudent = async (req: Request, res: Response) =&gt; {
+    console.log('acessein');
     const studentId = (req as any).student<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d;
     if (studentId === undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError('Usuário não está autenticado.');</span>
@@ -436,7 +442,7 @@ export class SchoolClassController {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-15T05:34:31.069Z
+                at 2024-02-16T01:33:20.140Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

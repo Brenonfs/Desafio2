@@ -11,5 +11,5 @@ studentRoutes.get('/viewStudent', ensureStudentAuth, studentController.viewStude
 studentRoutes.get('/viewSchool', ensureSchoolAuth, studentController.viewStudentBySchool);
 studentRoutes.get('/view', ensureStudentAuth, ensureSchoolAuth, studentController.viewStudentAndSchool);
 studentRoutes.get('/list', ensureSchoolAuth, studentController.listStudent);
-studentRoutes.put('/update', ensureSchoolAuth, studentController.update);
+studentRoutes.put('/class/:id', ensureSchoolAuth, studentController.update);
 export { studentRoutes };

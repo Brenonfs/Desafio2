@@ -31,8 +31,6 @@ export async function getRandomCep(): Promise<string> {
     }
 
     const logradouro = getRandomLogradouro(logradouros);
-    console.log(logradouro);
-    console.log(cidade);
     const response = await axios.get(`https://viacep.com.br/ws/${estado}/${cidade}/${logradouro}/${tipo}/`);
     if (response.data && response.data.length > 0) {
       const randomIndex = Math.floor(Math.random() * response.data.length);

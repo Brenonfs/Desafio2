@@ -40,7 +40,6 @@ export class SchoolController {
   };
 
   viewPublic = async (req: Request, res: Response) => {
-    console.log(`viewPublic: ` + req.body);
     const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);
     if (!validatedSchoolSchema.success) {
       throw new BadRequestError(`Não foi possível visualizar escola.`);

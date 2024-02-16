@@ -4,7 +4,7 @@ import { BadRequestError, UnauthorizedError } from '../helpers/api-erros';
 import { CreateSchoolClassService } from '../services/SchoolClassService/createSchoolClass.service';
 import { ListSchoolClassService } from '../services/SchoolClassService/listSchoolClass.service';
 import { ViewSchoolClassService } from '../services/SchoolClassService/viewSchoolClass.service';
-import { schoolClassCreateSchema, schoolClassViewIDSchema, schoolClassViewSchema } from '../schemas/schoolClass';
+import { schoolClassCreateSchema, schoolClassViewSchema } from '../schemas/schoolClass';
 import { ExportSchoolClassOfTeacherService } from '../services/SchoolClassService/exportSchoolClassOfTeacher.service';
 import { ExportSchoolClassOfStudentService } from '../services/SchoolClassService/exportSchoolClassOfStudent.service';
 import { ImportFileService } from '../services/FileService/importFile.service';
@@ -71,11 +71,10 @@ export class SchoolClassController {
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
-    const validatedSchoolClassSchema = schoolClassViewIDSchema.safeParse(req.body);
-    if (!validatedSchoolClassSchema.success) {
-      throw new BadRequestError(`Não foi possível visualizar a classe.`);
-    }
-    const result = await this.viewByIDSchoolClassService.execute(validatedSchoolClassSchema.data.id);
+
+    const classId = +req.params.id;
+
+    const result = await this.viewByIDSchoolClassService.execute(classId);
     res.json({ result });
   };
 

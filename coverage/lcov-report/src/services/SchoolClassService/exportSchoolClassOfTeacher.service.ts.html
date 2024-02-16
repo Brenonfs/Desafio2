@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
+                <span class="strong">20.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/63</span>
+                <span class='fraction'>14/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
+                <span class="strong">20.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/63</span>
+                <span class='fraction'>14/69</span>
             </div>
         
             
@@ -126,7 +126,13 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -186,10 +192,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BadRequestError, NotFoundError } from '../../helpers/api-erros';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BadRequestError } from '../../helpers/api-erros';
 import { TeacherRepository } from '../../repositories/teacher.repository';
 import ExcelJS from 'exceljs';
 import S3Storage from '../../utils/S3Storage';
@@ -202,51 +214,57 @@ class ExportSchoolClassOfTeacherService {
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
   async <span class="fstat-no" title="function not covered" >execute(teacherId: number) {</span>
-<span class="cstat-no" title="statement not covered" >    if (teacherId !== undefined) {</span>
-<span class="cstat-no" title="statement not covered" >      const teacherExists = await this.teacherRepository.findById(teacherId);</span>
-<span class="cstat-no" title="statement not covered" >      if (teacherExists &amp;&amp; teacherExists.schoolClass.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >        const workbook = new ExcelJS.Workbook();</span>
-<span class="cstat-no" title="statement not covered" >        const worksheet = workbook.addWorksheet('Turmas');</span>
+<span class="cstat-no" title="statement not covered" >    const teacherExists = await this.teacherRepository.findById(teacherId);</span>
+<span class="cstat-no" title="statement not covered" >    if (teacherExists) {</span>
+<span class="cstat-no" title="statement not covered" >      const workbook = new ExcelJS.Workbook();</span>
+<span class="cstat-no" title="statement not covered" >      const worksheet = workbook.addWorksheet('Turmas');</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        // Adiciona a linha com os dias da semana válidos</span>
-<span class="cstat-no" title="statement not covered" >        worksheet.addRow(['Horários', ...['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']]);</span>
-<span class="cstat-no" title="statement not covered" >        const diasDaSemanaValidos = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];</span>
-<span class="cstat-no" title="statement not covered" >        // Adiciona as colunas com os horários válidos</span>
-<span class="cstat-no" title="statement not covered" >        const horariosvalidos = [</span>
-<span class="cstat-no" title="statement not covered" >          '7:00 - 7:55',</span>
-<span class="cstat-no" title="statement not covered" >          '7:55 - 8:50',</span>
-<span class="cstat-no" title="statement not covered" >          '8:50 - 9:45',</span>
-<span class="cstat-no" title="statement not covered" >          '9:45 - 10:40',</span>
-<span class="cstat-no" title="statement not covered" >          '10:40 - 11:35',</span>
-<span class="cstat-no" title="statement not covered" >          '11:35 - 12:30',</span>
-<span class="cstat-no" title="statement not covered" >        ];</span>
+<span class="cstat-no" title="statement not covered" >      // Adiciona a linha com os dias da semana válidos</span>
+<span class="cstat-no" title="statement not covered" >      worksheet.addRow(['Horários', ...['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']]);</span>
+<span class="cstat-no" title="statement not covered" >      const diasDaSemanaValidos = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];</span>
+<span class="cstat-no" title="statement not covered" >      // Adiciona as colunas com os horários válidos</span>
+<span class="cstat-no" title="statement not covered" >      const horariosvalidos = [</span>
+<span class="cstat-no" title="statement not covered" >        '7:00 - 7:55',</span>
+<span class="cstat-no" title="statement not covered" >        '7:55 - 8:50',</span>
+<span class="cstat-no" title="statement not covered" >        '8:50 - 9:45',</span>
+<span class="cstat-no" title="statement not covered" >        '9:45 - 10:40',</span>
+<span class="cstat-no" title="statement not covered" >        '10:40 - 11:35',</span>
+<span class="cstat-no" title="statement not covered" >        '11:35 - 12:30',</span>
+<span class="cstat-no" title="statement not covered" >      ];</span>
+<span class="cstat-no" title="statement not covered" >      horariosvalidos.forEach((horario) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        const row = [horario];</span>
+<span class="cstat-no" title="statement not covered" >        // Aloca a turma com base no dia da semana e horário</span>
+<span class="cstat-no" title="statement not covered" >        teacherExists.schoolClass.forEach((schoolClass) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          if (horario === schoolClass.time &amp;&amp; diasDaSemanaValidos.includes(schoolClass.dayOfWeek)) {</span>
+<span class="cstat-no" title="statement not covered" >            const columnIndex = diasDaSemanaValidos.indexOf(schoolClass.dayOfWeek) + 1; // +1 para compensar o cabeçalho</span>
+<span class="cstat-no" title="statement not covered" >            row[columnIndex] = schoolClass.discipline;</span>
+<span class="cstat-no" title="statement not covered" >          }</span>
+<span class="cstat-no" title="statement not covered" >        });</span>
+<span class="cstat-no" title="statement not covered" >        worksheet.addRow(row);</span>
+<span class="cstat-no" title="statement not covered" >      });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      // Se o professor não estiver associado a nenhuma turma, ainda assim adiciona as linhas com horários válidos</span>
+<span class="cstat-no" title="statement not covered" >      if (teacherExists.schoolClass.length === 0) {</span>
 <span class="cstat-no" title="statement not covered" >        horariosvalidos.forEach((horario) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          const row = [horario];</span>
-<span class="cstat-no" title="statement not covered" >          // Aloca a turma com base no dia da semana e horário</span>
-<span class="cstat-no" title="statement not covered" >          teacherExists.schoolClass.forEach((schoolClass) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            if (horario === schoolClass.time &amp;&amp; diasDaSemanaValidos.includes(schoolClass.dayOfWeek)) {</span>
-<span class="cstat-no" title="statement not covered" >              const columnIndex = diasDaSemanaValidos.indexOf(schoolClass.dayOfWeek) + 1; // +1 para compensar o cabeçalho</span>
-<span class="cstat-no" title="statement not covered" >              row[columnIndex] = schoolClass.discipline;</span>
-<span class="cstat-no" title="statement not covered" >            }</span>
+<span class="cstat-no" title="statement not covered" >          diasDaSemanaValidos.forEach(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            row.push(''); // Adiciona células em branco para os dias da semana</span>
 <span class="cstat-no" title="statement not covered" >          });</span>
 <span class="cstat-no" title="statement not covered" >          worksheet.addRow(row);</span>
 <span class="cstat-no" title="statement not covered" >        });</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        const excelBuffer = Buffer.from(await workbook.xlsx.writeBuffer());</span>
-<span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >          const s3Storage = new S3Storage();</span>
-<span class="cstat-no" title="statement not covered" >          const key = `turmas/${teacherExists.schoolId}/${teacherExists.id}.xlsx`;</span>
-<span class="cstat-no" title="statement not covered" >          await s3Storage.saveFileBuffer(excelBuffer, key);</span>
-<span class="cstat-no" title="statement not covered" >          return key;</span>
-<span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >          console.error('Erro ao exportar arquivo para o S3:', error);</span>
-<span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >      } else {</span>
-<span class="cstat-no" title="statement not covered" >        throw new NotFoundError('Não foram encontradas turmas para o aluno.');</span>
+<span class="cstat-no" title="statement not covered" >      const excelBuffer = Buffer.from(await workbook.xlsx.writeBuffer());</span>
+<span class="cstat-no" title="statement not covered" >      try {</span>
+<span class="cstat-no" title="statement not covered" >        const s3Storage = new S3Storage();</span>
+<span class="cstat-no" title="statement not covered" >        const key = `turmas/${teacherExists.schoolId}/${teacherExists.id}.xlsx`;</span>
+<span class="cstat-no" title="statement not covered" >        await s3Storage.saveFileBuffer(excelBuffer, key);</span>
+<span class="cstat-no" title="statement not covered" >        return key;</span>
+<span class="cstat-no" title="statement not covered" >      } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.error('Erro ao exportar arquivo para o S3:', error);</span>
 <span class="cstat-no" title="statement not covered" >      }</span>
 <span class="cstat-no" title="statement not covered" >    } else {</span>
-<span class="cstat-no" title="statement not covered" >      // Caso ambos ou nenhum dos parâmetros seja fornecido</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequestError('É necessário fornecer apenas um dos seguintes parâmetros: teacherId ou schoolId.');</span>
+<span class="cstat-no" title="statement not covered" >      throw new BadRequestError('Professor não encontrado.');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 }
@@ -259,7 +277,7 @@ export { ExportSchoolClassOfTeacherService };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-15T05:34:31.069Z
+                at 2024-02-16T01:33:20.140Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

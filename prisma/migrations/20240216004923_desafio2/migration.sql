@@ -2,7 +2,7 @@
 CREATE TABLE "schools" (
     "id" SERIAL NOT NULL,
     "schoolCode" TEXT NOT NULL,
-    "street" TEXT NOT NULL,
+    "street" TEXT,
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "cep" TEXT NOT NULL,

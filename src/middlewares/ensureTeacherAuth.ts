@@ -29,7 +29,7 @@ const ensureTeachertAuth = async (req: Request, res: Response, next: NextFunctio
       };
       return next();
     } else {
-      throw new Error('JWT configuration is not properly set');
+      throw new UnauthorizedError('JWT configuration is not properly set');
     }
   } catch {
     throw new UnauthorizedError('JWT Token invalid');

@@ -45,8 +45,4 @@ export const teacherUpdateSchema = z.object({
       invalid_type_error: 'O  campo "teacherCode" tem caracteres inválidos',
     })
     .min(3, { message: 'O campo "teacherCode" está muito pequeno' }),
-  id: z.number({
-    required_error: 'O  campo "id" está vazio',
-    invalid_type_error: 'O  campo "id" tem caracteres inválidos',
-  }),
 });

@@ -446,11 +446,10 @@ describe('Test all', () => {
       throw new Error('schoolClass Create ERROR: '); // Retornar null ou lançar um erro, dependendo do que deseja.
     }
     const response = await request(app)
-      .put('/student/update')
+      .put(`/student/class/${schoolClass.schoolClassTest.id}`)
       .set('Authorization', `Bearer ${school.schoolTest.token}`)
       .send({
         registration: school.studentTest.registration,
-        id: schoolClass.schoolClassTest.id,
       });
     expect(response.body.result.schoolId).toEqual(school.studentTest.schoolId);
     expect(response.body.result.registration).toEqual(school.studentTest.registration);
@@ -551,11 +550,10 @@ describe('Test all', () => {
       throw new Error('schoolClass Create ERROR: '); // Retornar null ou lançar um erro, dependendo do que deseja.
     }
     const response = await request(app)
-      .put('/teacher/')
+      .put(`/teacher/class/${schoolClass.schoolClassTest.id}`)
       .set('Authorization', `Bearer ${school.schoolTest.token}`)
       .send({
         teacherCode: school.teacherTest.teacherCode,
-        id: schoolClass.schoolClassTest.id,
       });
     expect(response.body.result.schoolId).toEqual(school.teacherTest.schoolId);
     expect(response.body.result.teacherCode).toEqual(school.teacherTest.teacherCode);
@@ -642,11 +640,9 @@ describe('Test all', () => {
       throw new Error('schoolClass Create ERROR: ');
     }
     const response = await request(app)
-      .get('/schoolClass/viewDetails')
+      .get(`/schoolClass/class/${schoolClass.schoolClassTest.id}`)
       .set('Authorization', `Bearer ${schoolClass.schoolTest.token}`)
-      .send({
-        id: schoolClass.schoolClassTest.id,
-      });
+      .send({});
 
     expect(response.body.result.discipline).toEqual(schoolClass.schoolClassTest.discipline);
     expect(response.body.result.year).toEqual(schoolClass.schoolClassTest.year);
@@ -663,23 +659,26 @@ describe('Test all', () => {
     const mockImport = ImportFileService.prototype.execute as jest.Mock;
     mockImport.mockResolvedValue('http://url-aleatoria.com');
     AWS.restore();
+
     const response = await request(app)
       .get('/schoolClass/exportStudent')
       .set('Authorization', `Bearer ${student.token}`);
-    expect(response.body.excelUrl).toEqual('http://url-aleatoria.com');
     expect(response.statusCode).toEqual(200);
+    expect(response.body.excelUrl).toEqual('http://url-aleatoria.com');
   });
   it('Export Teacher SchoolClass', async () => {
     const teacher = await loginTeacher();
+
     const mockExport = ExportSchoolClassOfTeacherService.prototype.execute as jest.Mock;
     mockExport.mockResolvedValue('key-aleatoria');
     const mockImport = ImportFileService.prototype.execute as jest.Mock;
     mockImport.mockResolvedValue('http://url-aleatoria.com');
     AWS.restore();
+
     const response = await request(app)
       .get('/schoolClass/exportTeacher')
       .set('Authorization', `Bearer ${teacher.token}`);
-    expect(response.body.excelUrl).toEqual('http://url-aleatoria.com');
     expect(response.statusCode).toEqual(200);
+    expect(response.body.excelUrl).toEqual('http://url-aleatoria.com');
   });
 });

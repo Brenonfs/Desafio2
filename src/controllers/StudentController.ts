@@ -117,15 +117,23 @@ export class StudentController {
     if (schoolId === undefined) {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
+
     const validatedStudentSchema = studentUpdateSchema.safeParse(req.body);
     if (!validatedStudentSchema.success) {
       throw new BadRequestError(`Não foi possível matricular na classe.`);
     }
-    const result = await this.updateStudentService.execute(
-      validatedStudentSchema.data.registration,
-      validatedStudentSchema.data.id,
-      schoolId,
-    );
+
+    const classId = +req.params.id;
+
+    if (typeof classId !== 'number') {
+      return res.status(400).send('id de usuário inválido');
+    }
+
+    if (isNaN(classId)) {
+      throw new BadRequestError(`O parâmetro 'id' não é um número válido.`);
+    }
+
+    const result = await this.updateStudentService.execute(validatedStudentSchema.data.registration, classId, schoolId);
     res.json({ result });
   };
 }
