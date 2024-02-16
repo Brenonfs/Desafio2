@@ -1,15 +1,20 @@
+import { NotFoundError } from '../../helpers/api-erros';
 import { SchoolClassRepository } from '../../repositories/schoolClass.repository';
 
 class ListSchoolClassService {
-  private classRepository: SchoolClassRepository;
+  private schoolClassRepository: SchoolClassRepository;
 
   constructor() {
-    this.classRepository = new SchoolClassRepository();
+    this.schoolClassRepository = new SchoolClassRepository();
   }
 
   async execute(schoolId: number) {
-    const classes = await this.classRepository.listSchoolClass(schoolId);
-    return classes;
+    const classExists = await this.schoolClassRepository.listSchoolClass(schoolId);
+    if (!classExists) {
+      throw new NotFoundError(`Não há turma com essas especificações.`);
+    }
+
+    return classExists;
   }
 }
 export { ListSchoolClassService };

@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { UnauthorizedError } from '../../helpers/api-erros';
+import { NotFoundError, UnauthorizedError } from '../../helpers/api-erros';
 import { TeacherRepository } from '../../repositories/teacher.repository';
 
 class CreateTeacherService {
@@ -9,13 +8,22 @@ class CreateTeacherService {
     this.teacherRepository = new TeacherRepository();
   }
 
-  async execute(teacherCode: string, password: string,  discipline: string, profileName: string, schoolId: number) {
+  async execute(teacherCode: string, password: string, discipline: string, profileName: string, schoolId: number) {
     const teacherExists = await this.teacherRepository.findByTeacherCode(teacherCode, schoolId);
     if (teacherExists) {
       throw new UnauthorizedError(`Este nome já está cadastrado.`);
     }
-    const teacher = await this.teacherRepository.saveTeacher(teacherCode, password, profileName, discipline, schoolId);
-    return teacher;
+    const createTeacher = await this.teacherRepository.saveTeacher(
+      teacherCode,
+      password,
+      profileName,
+      discipline,
+      schoolId,
+    );
+    if (!createTeacher) {
+      throw new NotFoundError(`Não foi possível criar professor com essas especificações.`);
+    }
+    return createTeacher;
   }
 }
 

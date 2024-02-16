@@ -18,7 +18,6 @@ export class TeacherRepository {
     });
     return teacher;
   }
-
   async findByTeacherCode(teacherCode: string, schoolId: number) {
     const teacherExists = await prisma.teacher.findUnique({
       where: { teacherCode, schoolId },
@@ -32,7 +31,6 @@ export class TeacherRepository {
     });
     return teacherExists;
   }
-
   async findById(teacherId: number) {
     const teacherExists = await prisma.teacher.findUnique({
       where: { id: teacherId },
@@ -46,7 +44,6 @@ export class TeacherRepository {
     });
     return teacherExists;
   }
-
   async listTeacher(schoolId: number) {
     const teacherExists = await prisma.teacher.findMany({
       where: { schoolId },
@@ -60,7 +57,6 @@ export class TeacherRepository {
     });
     return teacherExists;
   }
-
   async updateTeacher(teacherCode: string, idSchoolClass: number, schoolId: number) {
     const updateTeacher = await prisma.teacher.update({
       where: { teacherCode, schoolId },

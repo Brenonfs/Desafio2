@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 

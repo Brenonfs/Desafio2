@@ -15,7 +15,6 @@ export class StudentRepository {
     });
     return student;
   }
-
   async findById(studentId: number) {
     const studentExists = await prisma.student.findUnique({
       where: { id: studentId },
@@ -41,20 +40,6 @@ export class StudentRepository {
     });
     return studentExists;
   }
-  async findByName(registration: string, schoolId: number) {
-    const studentExists = await prisma.student.findUnique({
-      where: { schoolId, registration },
-      select: {
-        id: true,
-        registration: true,
-        profileName: true,
-        schoolId: true,
-        schoolClass: true,
-      },
-    });
-    return studentExists;
-  }
-
   async listStudent(schoolId: number) {
     const studentExists = await prisma.student.findMany({
       where: { schoolId },
@@ -67,21 +52,7 @@ export class StudentRepository {
     });
     return studentExists;
   }
-  async listStudentClass(schoolId: number, registration: string) {
-    const studentExists = await prisma.student.findMany({
-      where: { registration, schoolId },
-      select: {
-        id: true,
-        registration: true,
-        profileName: true,
-        schoolId: true,
-        schoolClass: true,
-      },
-    });
-    return studentExists;
-  }
-
-  async updateStudante(registration: string, idSchoolClass: number, schoolId: number) {
+  async updateStudent(registration: string, idSchoolClass: number, schoolId: number) {
     const updateStudant = await prisma.student.update({
       where: { registration, schoolId },
       data: {

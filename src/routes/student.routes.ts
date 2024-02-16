@@ -9,7 +9,6 @@ const studentController = new StudentController();
 studentRoutes.post('/', ensureSchoolAuth, studentController.create);
 studentRoutes.get('/viewStudent', ensureStudentAuth, studentController.viewStudentByStudent);
 studentRoutes.get('/viewSchool', ensureSchoolAuth, studentController.viewStudentBySchool);
-studentRoutes.get('/view', ensureStudentAuth, ensureSchoolAuth, studentController.viewStudentAndSchool);
 studentRoutes.get('/list', ensureSchoolAuth, studentController.listStudent);
 studentRoutes.put('/class/:id', ensureSchoolAuth, studentController.update);
 export { studentRoutes };

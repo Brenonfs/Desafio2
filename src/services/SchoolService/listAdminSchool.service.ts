@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+import { NotFoundError } from '../../helpers/api-erros';
 import { SchoolRepository } from '../../repositories/school.repository';
 
 class ListAdminSchoolService {
@@ -9,9 +9,12 @@ class ListAdminSchoolService {
   }
 
   async execute() {
+    const schoolExists = await this.schoolRepository.listSchoolAdmin();
+    if (!schoolExists) {
+      throw new NotFoundError(`Não há escolas.`);
+    }
 
-    const school = await this.schoolRepository.listSchoolAdmin();
-    return school
+    return schoolExists;
   }
 }
 export { ListAdminSchoolService };

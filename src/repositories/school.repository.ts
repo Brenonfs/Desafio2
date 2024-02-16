@@ -17,12 +17,32 @@ export class SchoolRepository {
     const hashedPassword = await hash(password, 8);
     const school = await prisma.school.create({
       data: { schoolCode, password: hashedPassword, city, state, street, cep, neighborhood, profileName },
+      select: {
+        id: true,
+        schoolCode: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
+        neighborhood: true,
+        profileName: true,
+      },
     });
     return school;
   }
   async findByCep(cep: string) {
     const schoolExists = await prisma.school.findUnique({
       where: { cep },
+      select: {
+        id: true,
+        schoolCode: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
+        neighborhood: true,
+        profileName: true,
+      },
     });
     return schoolExists;
   }
@@ -34,6 +54,7 @@ export class SchoolRepository {
         state: true,
         street: true,
         cep: true,
+        neighborhood: true,
         profileName: true,
       },
     });
@@ -55,7 +76,6 @@ export class SchoolRepository {
 
     return schoolExists;
   }
-
   async findByProfile(profileName: string) {
     const schoolExists = await prisma.school.findMany({
       where: { profileName },
@@ -73,6 +93,21 @@ export class SchoolRepository {
   async findById(schoolId: number) {
     const schoolExists = await prisma.school.findUnique({
       where: { id: schoolId },
+      select: {
+        id: true,
+        city: true,
+        state: true,
+        street: true,
+        cep: true,
+        profileName: true,
+        schoolCode: true,
+      },
+    });
+    return schoolExists;
+  }
+  async findBySchoolCode(schoolCode: string) {
+    const schoolExists = await prisma.school.findUnique({
+      where: { schoolCode },
       select: {
         id: true,
         city: true,

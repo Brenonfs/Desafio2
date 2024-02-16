@@ -44,7 +44,6 @@ export class TeacherController {
     );
     res.json({ result });
   };
-
   viewTeachertBySchool = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
@@ -57,7 +56,6 @@ export class TeacherController {
     const result = await this.viewTeacherBySchoolService.execute(validatedTeacherSchema.data.teacherCode, schoolId);
     res.json({ result });
   };
-
   viewTeachertByTeacher = async (req: Request, res: Response) => {
     const teacherId = (req as any).teacher.id;
     if (teacherId === undefined) {
@@ -66,7 +64,6 @@ export class TeacherController {
     const result = await this.viewTeacherByTeacherService.execute(teacherId);
     res.json({ result });
   };
-
   viewTeacherAndSchool = async (req: Request, res: Response) => {
     const schoolId = req.school?.id;
     const teacherId = req.teacher?.id;
@@ -85,7 +82,6 @@ export class TeacherController {
     );
     res.json({ result });
   };
-
   list = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
@@ -94,7 +90,6 @@ export class TeacherController {
     const result = await this.listTeacherService.execute(schoolId);
     res.json({ result });
   };
-
   update = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {
@@ -105,8 +100,8 @@ export class TeacherController {
       throw new BadRequestError(`Não foi possível atualizar profesor(a).`);
     }
     const classId = +req.params.id;
-    if (isNaN(classId)) {
-      throw new BadRequestError(`O parâmetro 'id' não é um número válido.`);
+    if (!classId) {
+      throw new BadRequestError(`ID não informado.`);
     }
     const result = await this.updateTeacherService.execute(validatedStudentSchema.data.teacherCode, classId, schoolId);
     res.json({ result });

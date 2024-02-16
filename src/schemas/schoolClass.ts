@@ -48,7 +48,6 @@ export const schoolClassCreateSchema = z.object({
     })
     .nullable(),
 });
-
 export const schoolClassViewSchema = z.object({
   discipline: z
     .string({
@@ -63,7 +62,6 @@ export const schoolClassViewSchema = z.object({
     })
     .min(4, { message: 'O campo "year " está muito pequeno' }),
 });
-
 export const schoolClassUpdateSchema = z.object({
   registration: z
     .string({

@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../helpers/api-erros';
+import { BadRequestError, NotFoundError } from '../../helpers/api-erros';
 import { SchoolClassRepository } from '../../repositories/schoolClass.repository';
 import { TeacherRepository } from '../../repositories/teacher.repository';
 
@@ -16,29 +16,30 @@ class UpdateTeacherService {
     if (!teacherExists) {
       throw new BadRequestError(`Professor(a) não foi encontrado.`);
     }
-    if (!classId) {
-      throw new BadRequestError(`Este id não foi encontrado.`);
-    }
+
     const classExists = await this.schoolClassRepository.findByID(classId);
     if (!classExists) {
       throw new BadRequestError(`Esta turma não foi encontrado.`);
     }
-    const isTeacherInSchoolClass = teacherExists.schoolClass.some((classItem) => classItem.id === classId);
-    if (isTeacherInSchoolClass) {
+    const isTeacherInSameSchoolClass = teacherExists.schoolClass.some((classItem) => classItem.id === classId);
+    if (isTeacherInSameSchoolClass) {
       throw new BadRequestError(`Professor(a) já está cadastrado nesta turma.`);
     }
-    const isSTeacherInOtherSchoolClass = teacherExists.schoolClass.some((teacherSchoolClass) => {
+    const isSTeacherInOtherSchoolClassSameTime = teacherExists.schoolClass.some((teacherSchoolClass) => {
       return (
         teacherSchoolClass.dayOfWeek === classExists.dayOfWeek &&
         teacherSchoolClass.time === classExists.time &&
         teacherSchoolClass.id !== classExists.id
       );
     });
-    if (isSTeacherInOtherSchoolClass) {
+    if (isSTeacherInOtherSchoolClassSameTime) {
       throw new BadRequestError(`Este professor já está cadastrado em outra turma no mesmo dia e horário.`);
     }
     const idSchoolClass = classExists.id;
     const updatedTeacher = await this.teacherRepository.updateTeacher(teacherCode, idSchoolClass, schoolId);
+    if (!updatedTeacher) {
+      throw new NotFoundError(`Não foi possivel atualizar o professor.`);
+    }
     return updatedTeacher;
   }
 }

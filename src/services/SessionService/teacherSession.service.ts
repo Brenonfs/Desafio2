@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
@@ -24,15 +23,10 @@ export class TeacherSessionService {
     }
     if (jwtConfig && jwtConfig.secret !== undefined) {
       const { secret, expiresIn } = jwtConfig;
-      const token = sign(
-        {
-          sub: String(teacherExist.id), // Incluindo schoolId como chave separada no payload
-        },
-        secret,
-        {
-          expiresIn,
-        },
-      );
+      const token = sign({}, secret, {
+        subject: String(teacherExist.id),
+        expiresIn,
+      });
 
       return {
         id: teacherExist.id,

@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { UnauthorizedError } from '../../helpers/api-erros';
+import { NotFoundError, UnauthorizedError } from '../../helpers/api-erros';
 import { StudentRepository } from '../../repositories/student.repository';
 
 class CreateStudentService {
@@ -10,12 +9,15 @@ class CreateStudentService {
   }
 
   async execute(registration: string, password: string, profileName: string, schoolId: number) {
-    const studentExists = await this.studentRepository.findByName(registration,schoolId);
+    const studentExists = await this.studentRepository.findByRegistration(registration, schoolId);
     if (studentExists) {
       throw new UnauthorizedError(`Este nome já está cadastrado.`);
     }
-    const student = await this.studentRepository.saveStudent(registration, password, profileName, schoolId);
-    return student;
+    const createStudent = await this.studentRepository.saveStudent(registration, password, profileName, schoolId);
+    if (!createStudent) {
+      throw new NotFoundError(`Não foi possível criar aluno com essas especificações.`);
+    }
+    return createStudent;
   }
 }
 

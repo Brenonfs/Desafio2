@@ -29,7 +29,6 @@ export const teacherCreateSchema = z.object({
     })
     .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
-
 export const teacherViewSchema = z.object({
   teacherCode: z
     .string({

@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../helpers/api-erros';
+import { NotFoundError } from '../../helpers/api-erros';
 import { SchoolRepository } from '../../repositories/school.repository';
 
 class ViewSchoolService {
@@ -11,7 +11,7 @@ class ViewSchoolService {
   async execute(schoolId: number) {
     const schoolExists = await this.schoolRepository.findById(schoolId);
     if (!schoolExists) {
-      throw new BadRequestError(`Não há escolas com o nome '${schoolId}'.`);
+      throw new NotFoundError(`Não há escolas com o id '${schoolId}'.`);
     }
 
     return schoolExists;

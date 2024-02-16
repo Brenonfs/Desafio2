@@ -22,7 +22,6 @@ export const studentCreateSchema = z.object({
     })
     .min(3, { message: 'O campo "profileName" está muito pequeno' }),
 });
-
 export const studentViewSchema = z.object({
   registration: z
     .string({

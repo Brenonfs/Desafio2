@@ -38,7 +38,6 @@ export class SchoolController {
 
     res.json({ result });
   };
-
   viewPublic = async (req: Request, res: Response) => {
     const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);
     if (!validatedSchoolSchema.success) {
@@ -55,13 +54,10 @@ export class SchoolController {
     const result = await this.viewSchoolService.execute(schoolId);
     res.json({ result });
   };
-
   listAdmin = async (req: Request, res: Response) => {
-    // precisa de login do tipo admin
     const result = await this.listAdminSchoolService.execute();
     res.json({ result });
   };
-
   listPublic = async (req: Request, res: Response) => {
     const result = await this.listPublicSchoolService.execute();
     res.json({ result });

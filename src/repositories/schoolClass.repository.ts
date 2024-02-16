@@ -17,9 +17,6 @@ export class SchoolClassRepository {
   }
 
   async findByID(id: number) {
-    if (id === undefined || id === null) {
-      throw new Error('ID não fornecido para findByID');
-    }
     const classExists = await prisma.schoolClass.findUnique({
       where: {
         id,

@@ -9,7 +9,6 @@ dotenv.config();
 
 export class ImportFileService {
   async execute(key: string) {
-    // Validando as credenciais AWS do ambiente usando o esquema Zod
     const awsCredentialsResult = AwsCredentialsSchema.safeParse(process.env);
 
     if (awsCredentialsResult.success) {
@@ -30,7 +29,6 @@ export class ImportFileService {
     const s3 = new AWS.S3();
 
     try {
-      // Tenta obter a URL assinada para o objeto no S3
       const getObjectParams = {
         Bucket: sourceBucket,
         Key: sourceKey,
@@ -45,7 +43,6 @@ export class ImportFileService {
       if ((error as { code?: string }).code === 'NoSuchKey') {
         throw new NotFoundError('A chave especificada não existe no bucket S3.');
       } else {
-        // Trata outros casos específicos de erro, se necessário
         throw new ApiError('Erro genérico ao obter arquivo do S3.', 500);
       }
     }

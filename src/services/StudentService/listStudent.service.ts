@@ -1,3 +1,4 @@
+import { NotFoundError } from '../../helpers/api-erros';
 import { StudentRepository } from '../../repositories/student.repository';
 
 class ListStudentService {
@@ -8,8 +9,11 @@ class ListStudentService {
   }
 
   async execute(schoolId: number) {
-    const student = await this.studentRepository.listStudent(schoolId);
-    return student;
+    const studentExists = await this.studentRepository.listStudent(schoolId);
+    if (!studentExists) {
+      throw new NotFoundError(`Não há aluno para a escolas com o id '${schoolId}'.`);
+    }
+    return studentExists;
   }
 }
 export { ListStudentService };

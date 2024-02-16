@@ -19,11 +19,9 @@ class ExportSchoolClassOfStudentService {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Turmas');
 
-    // Adiciona a linha com os dias da semana válidos
     worksheet.addRow(['Horários', ...['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']]);
     const diasDaSemanaValidos = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
-    // Adiciona as colunas com os horários válidos
-    const horariosvalidos = [
+    const horariosValidos = [
       '7:00 - 7:55',
       '7:55 - 8:50',
       '8:50 - 9:45',
@@ -32,24 +30,21 @@ class ExportSchoolClassOfStudentService {
       '11:35 - 12:30',
     ];
 
-    horariosvalidos.forEach((horario) => {
+    horariosValidos.forEach((horario) => {
       const row = [horario];
-      // Aloca a turma com base no dia da semana e horário
       studentExists.schoolClass.forEach((schoolClass) => {
         if (horario === schoolClass.time && diasDaSemanaValidos.includes(schoolClass.dayOfWeek)) {
-          const columnIndex = diasDaSemanaValidos.indexOf(schoolClass.dayOfWeek) + 1; // +1 para compensar o cabeçalho
+          const columnIndex = diasDaSemanaValidos.indexOf(schoolClass.dayOfWeek) + 1;
           row[columnIndex] = schoolClass.discipline;
         }
       });
       worksheet.addRow(row);
     });
-
-    // Se o estudante não estiver matriculado em nenhuma turma, ainda assim adiciona as linhas com horários válidos
     if (studentExists.schoolClass.length === 0) {
-      horariosvalidos.forEach((horario) => {
+      horariosValidos.forEach((horario) => {
         const row = [horario];
         diasDaSemanaValidos.forEach(() => {
-          row.push(''); // Adiciona células em branco para os dias da semana
+          row.push('');
         });
         worksheet.addRow(row);
       });
@@ -63,6 +58,7 @@ class ExportSchoolClassOfStudentService {
       return key;
     } catch (error) {
       console.error('Erro ao exportar arquivo para o S3:', error);
+      throw new BadRequestError('Erro ao exportar arquivo para o S3');
     }
   }
 }
