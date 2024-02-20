@@ -6,7 +6,7 @@ import { ListTeacherService } from '../services/TeacherService/listTeacher.servi
 import { ViewTeacherByTeacherService } from '../services/TeacherService/viewTeacherByTeacher.service';
 import { teacherCreateSchema, teacherUpdateSchema, teacherViewSchema } from '../schemas/teacher';
 import { ViewTeacherBySchoolService } from '../services/TeacherService/viewTeacherBySchool.service';
-import { ViewTeacherSchoolService } from '../services/TeacherService/viewTeacherSchool.service copy';
+
 import { UpdateTeacherService } from '../services/TeacherService/updateTeacherservice';
 
 export class TeacherController {
@@ -14,7 +14,6 @@ export class TeacherController {
   private listTeacherService: ListTeacherService;
   private viewTeacherBySchoolService: ViewTeacherBySchoolService;
   private viewTeacherByTeacherService: ViewTeacherByTeacherService;
-  private viewTeacherSchoolService: ViewTeacherSchoolService;
   private updateTeacherService: UpdateTeacherService;
 
   constructor() {
@@ -22,7 +21,6 @@ export class TeacherController {
     this.listTeacherService = new ListTeacherService();
     this.viewTeacherBySchoolService = new ViewTeacherBySchoolService();
     this.viewTeacherByTeacherService = new ViewTeacherByTeacherService();
-    this.viewTeacherSchoolService = new ViewTeacherSchoolService();
     this.updateTeacherService = new UpdateTeacherService();
   }
 
@@ -64,24 +62,7 @@ export class TeacherController {
     const result = await this.viewTeacherByTeacherService.execute(teacherId);
     res.json({ result });
   };
-  viewTeacherAndSchool = async (req: Request, res: Response) => {
-    const schoolId = req.school?.id;
-    const teacherId = req.teacher?.id;
 
-    if (schoolId === undefined && teacherId === undefined) {
-      throw new UnauthorizedError('Usuário não está autenticado.');
-    }
-    const validatedStudentSchema = teacherViewSchema.safeParse(req.body);
-    if (!validatedStudentSchema.success) {
-      throw new BadRequestError(`Não foi possível visualizar profesor(a).`);
-    }
-    const result = await this.viewTeacherSchoolService.execute(
-      validatedStudentSchema.data.teacherCode,
-      teacherId,
-      schoolId,
-    );
-    res.json({ result });
-  };
   list = async (req: Request, res: Response) => {
     const schoolId = (req as any).school?.id;
     if (schoolId === undefined) {

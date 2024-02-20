@@ -7,14 +7,12 @@ import { ViewStudentByStudentSerivce } from '../services/StudentService/viewStud
 import { ViewStudentBySchoolService } from '../services/StudentService/viewStudentBySchool.service';
 import { studentCreateSchema, studentUpdateSchema, studentViewSchema } from '../schemas/student';
 import { UpdateStudentService } from '../services/StudentService/updateStudent.service';
-import { ViewStudentSchoolService } from '../services/StudentService/viewStudentSchool.service';
 
 export class StudentController {
   private createStudentService: CreateStudentService;
   private listStudentService: ListStudentService;
   private viewStudentByStudentSerivce: ViewStudentByStudentSerivce;
   private viewStudentBySchoolService: ViewStudentBySchoolService;
-  private viewStudentSchoolService: ViewStudentSchoolService;
   private updateStudentService: UpdateStudentService;
 
   constructor() {
@@ -22,7 +20,6 @@ export class StudentController {
     this.listStudentService = new ListStudentService();
     this.viewStudentByStudentSerivce = new ViewStudentByStudentSerivce();
     this.viewStudentBySchoolService = new ViewStudentBySchoolService();
-    this.viewStudentSchoolService = new ViewStudentSchoolService();
     this.updateStudentService = new UpdateStudentService();
   }
 
@@ -61,24 +58,6 @@ export class StudentController {
       throw new BadRequestError(`Não foi possível visualizar Aluno(a).`);
     }
     const result = await this.viewStudentBySchoolService.execute(schoolId, validatedStudentSchema.data.registration);
-    res.json({ result });
-  };
-  viewStudentAndSchool = async (req: Request, res: Response) => {
-    const schoolId = req.school?.id;
-    const studentId = req.student?.id;
-
-    if (schoolId === undefined && studentId === undefined) {
-      throw new UnauthorizedError('Usuário não está autenticado.');
-    }
-    const validatedStudentSchema = studentViewSchema.safeParse(req.body);
-    if (!validatedStudentSchema.success) {
-      throw new BadRequestError(`Não foi possível visualizar Aluno(a).`);
-    }
-    const result = await this.viewStudentSchoolService.execute(
-      validatedStudentSchema.data.registration,
-      studentId,
-      schoolId,
-    );
     res.json({ result });
   };
   listStudent = async (req: Request, res: Response) => {

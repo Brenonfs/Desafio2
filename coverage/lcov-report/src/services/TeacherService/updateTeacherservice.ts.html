@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.39% </span>
+                <span class="strong">87.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/46</span>
+                <span class='fraction'>41/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.39% </span>
+                <span class="strong">87.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/46</span>
+                <span class='fraction'>41/47</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,7 +109,8 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -123,39 +124,40 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BadRequestError } from '../../helpers/api-erros';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { BadRequestError, NotFoundError } from '../../helpers/api-erros';
 import { SchoolClassRepository } from '../../repositories/schoolClass.repository';
 import { TeacherRepository } from '../../repositories/teacher.repository';
 &nbsp;
@@ -173,29 +175,30 @@ class UpdateTeacherService {
     if (!teacherExists) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Professor(a) não foi encontrado.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    if (!classId) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Este id não foi encontrado.`);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
     const classExists = await this.schoolClassRepository.findByID(classId);
     if (!classExists) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Esta turma não foi encontrado.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const isTeacherInSchoolClass = teacherExists.schoolClass.some((classItem) =&gt; classItem.id === classId);
-    if (isTeacherInSchoolClass) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Professor(a) já está cadastrado nesta turma.`);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-    const isSTeacherInOtherSchoolClass = teacherExists.schoolClass.some((teacherSchoolClass) =&gt; {
-<span class="cstat-no" title="statement not covered" >      return (</span>
-<span class="cstat-no" title="statement not covered" >        teacherSchoolClass.dayOfWeek === classExists.dayOfWeek &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >        teacherSchoolClass.time === classExists.time &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >        teacherSchoolClass.id !== classExists.id</span>
-<span class="cstat-no" title="statement not covered" >      );</span>
+    const isTeacherInSameSchoolClass = teacherExists.schoolClass.some((classItem) =&gt; classItem.id === classId);
+    if (isTeacherInSameSchoolClass) {
+      throw new BadRequestError(`Professor(a) já está cadastrado nesta turma.`);
+    }
+    const isSTeacherInOtherSchoolClassSameTime = teacherExists.schoolClass.some((teacherSchoolClass) =&gt; {
+      return (
+        teacherSchoolClass.dayOfWeek === classExists.dayOfWeek &amp;&amp;
+        teacherSchoolClass.time === classExists.time &amp;&amp;
+        teacherSchoolClass.id !== classExists.id
+      );
     });
-    if (isSTeacherInOtherSchoolClass) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Este professor já está cadastrado em outra turma no mesmo dia e horário.`);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    if (isSTeacherInOtherSchoolClassSameTime) {
+      throw new BadRequestError(`Este professor já está cadastrado em outra turma no mesmo dia e horário.`);
+    }
     const idSchoolClass = classExists.id;
     const updatedTeacher = await this.teacherRepository.updateTeacher(teacherCode, idSchoolClass, schoolId);
+    if (!updatedTeacher) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFoundError(`Não foi possivel atualizar o professor.`);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
     return updatedTeacher;
   }
 }
@@ -208,7 +211,7 @@ export { UpdateTeacherService };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-16T01:33:20.140Z
+                at 2024-02-20T03:06:56.604Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
