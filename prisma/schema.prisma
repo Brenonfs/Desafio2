@@ -19,6 +19,7 @@ model School {
   teachers          Teacher[]
   schoolClass       SchoolClass[]
   students          Student[]
+  comunications     Communication[]
   @@map("schools")
 }
 
@@ -59,4 +60,14 @@ model Student {
   schoolId          Int
   school            School    @relation(fields: [schoolId], references: [id])
   @@map("students")
+}
+
+model Communication {
+  id                Int       @id @default(autoincrement())
+  messageType       String
+  message           String
+  timestamp         DateTime  @default(now())
+  schoolId          Int
+  school            School    @relation(fields: [schoolId], references: [id])
+  @@map("communications")
 }

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">47.61% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/42</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>20/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">47.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/42</span>
+                <span class='fraction'>20/42</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,28 +123,28 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable import/no-extraneous-dependencies */
@@ -164,29 +164,29 @@ declare module 'express-serve-static-core' {
   }
 }
 &nbsp;
-const ensureStudentAuth = async (req: Request, res: Response, next: NextFunction) =&gt; {
-  const authHeader = req.headers.authorization;
-&nbsp;
-  if (!authHeader) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+const ensureStudentAuth = <span class="fstat-no" title="function not covered" >async (req: Request, res: Response, next: NextFunction) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const authHeader = req.headers.authorization;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  if (!authHeader) {</span>
 <span class="cstat-no" title="statement not covered" >    return next();</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
-&nbsp;
-  const [, token] = authHeader.split(' ');
-&nbsp;
-  try {
-    if (jwtConfig &amp;&amp; jwtConfig.secret !== undefined) {
-      const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
-      req.student = {
-        id: Number(decodedToken.sub),
-      };
-      return next();
-    }<span class="branch-0 cbranch-no" title="branch not covered" > else {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const [, token] = authHeader.split(' ');</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    if (jwtConfig &amp;&amp; jwtConfig.secret !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >      const decodedToken = verify(token, jwtConfig.secret) as { sub: string };</span>
+<span class="cstat-no" title="statement not covered" >      req.student = {</span>
+<span class="cstat-no" title="statement not covered" >        id: Number(decodedToken.sub),</span>
+<span class="cstat-no" title="statement not covered" >      };</span>
+<span class="cstat-no" title="statement not covered" >      return next();</span>
+<span class="cstat-no" title="statement not covered" >    } else {</span>
 <span class="cstat-no" title="statement not covered" >      throw new Error('JWT configuration is not properly set');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-  } <span class="branch-0 cbranch-no" title="branch not covered" >catch {</span>
+<span class="cstat-no" title="statement not covered" >  } catch {</span>
 <span class="cstat-no" title="statement not covered" >    throw new UnauthorizedError('JWT Token invalid');</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
-};
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
 export { ensureStudentAuth };
 &nbsp;</pre></td></tr></table></pre>
@@ -196,7 +196,7 @@ export { ensureStudentAuth };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T03:06:56.604Z
+                at 2024-02-21T05:25:27.566Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

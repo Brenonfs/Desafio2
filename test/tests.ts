@@ -18,6 +18,7 @@ import {
 import { updateStudents } from './utils/student/updateStudentTest';
 import { createTeachers } from './utils/teacher/createTeacherTest';
 import { loginTeacher } from './utils/teacher/loginTeacherTest';
+import { createCommunication } from './utils/communication/createCommunication';
 
 jest.mock('../src/services/SchoolClassService/exportSchoolClassOfStudent.service');
 jest.mock('../src/services/SchoolClassService/exportSchoolClassOfTeacher.service');
@@ -279,14 +280,14 @@ describe('Test Student', () => {
     expect(studentList.statusCode).toEqual(200);
     expect(studentList.body.result).toBeTruthy();
     result.students.forEach((studentTest) => {
-      const isTeacherInList = studentList.body.result.some((student: any) => {
+      const isStudentInList = studentList.body.result.some((student: any) => {
         return (
           student.schoolId === studentTest.schoolId &&
           student.registration === studentTest.registration &&
           student.profileName === studentTest.profileName
         );
       });
-      expect(isTeacherInList).toBeTruthy();
+      expect(isStudentInList).toBeTruthy();
     });
   }, 10000);
 });
@@ -525,4 +526,52 @@ describe('Test SchoolClass', () => {
     expect(response.statusCode).toEqual(200);
     expect(response.body.excelUrl).toEqual('http://url-aleatoria.com');
   });
+});
+describe('Test Communication', () => {
+  it('Create Communication ', async () => {
+    const communication = await createCommunication(1);
+    if (!communication) {
+      throw new Error('Communication Create ERROR: ');
+    }
+    const firstCommunication = communication.communications[0];
+    expect(firstCommunication.response.body.result.messageType).toEqual(firstCommunication.messageType);
+    expect(firstCommunication.response.body.result.message).toEqual(firstCommunication.message);
+    expect(firstCommunication.response.body.result.timestamp).toEqual(firstCommunication.timestamp);
+    expect(firstCommunication.response.body.result.schoolId).toEqual(firstCommunication.schoolId);
+    expect(firstCommunication.response.statusCode).toEqual(200);
+  }, 15000);
+  it('View Communication', async () => {
+    const communication = await createCommunication(1);
+    if (!communication) {
+      throw new Error('Communication View ERROR: ');
+    }
+    const response = await request(app).get(
+      `/communication/view/${communication.communications[0].schoolId}/${communication.communications[0].id}`,
+    );
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.result.messageType).toEqual(communication.communications[0].messageType);
+    expect(response.body.result.message).toEqual(communication.communications[0].message);
+    expect(response.body.result.timestamp).toEqual(communication.communications[0].timestamp);
+    expect(response.body.result.schoolId).toEqual(communication.communications[0].schoolId);
+  }, 10000);
+
+  it('List Communication ', async () => {
+    const communication = await createCommunication(3);
+    if (!communication) {
+      throw new Error('Communication View ERROR: ');
+    }
+    const communicationList = await request(app).get(`/communication/list/${communication.communications[0].schoolId}`);
+    expect(communicationList.statusCode).toEqual(200);
+    expect(communicationList.body.result).toBeTruthy();
+    communication.communications.forEach((communicationTest) => {
+      const isCommunicationInList = communicationList.body.result.some((communication: any) => {
+        return (
+          communication.messageType === communicationTest.messageType &&
+          communication.message === communicationTest.message &&
+          communication.timestamp === communicationTest.timestamp
+        );
+      });
+      expect(isCommunicationInList).toBeTruthy();
+    });
+  }, 10000);
 });

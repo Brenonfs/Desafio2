@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.74% </span>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/39</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>15/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.74% </span>
+                <span class="strong">50% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/39</span>
+                <span class='fraction'>15/39</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -116,30 +116,30 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
@@ -154,31 +154,31 @@ export class TeacherSessionService {
   constructor() {
     this.sessionRepository = new SessionRepository();
   }
-  async execute(teacherCode: string, password: string) {
-    const teacherExist = await this.sessionRepository.findByTeacherCode(teacherCode);
-    if (!teacherExist) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+  async <span class="fstat-no" title="function not covered" >execute(teacherCode: string, password: string) {</span>
+<span class="cstat-no" title="statement not covered" >    const teacherExist = await this.sessionRepository.findByTeacherCode(teacherCode);</span>
+<span class="cstat-no" title="statement not covered" >    if (!teacherExist) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError('Nome e/ou senha incorreta');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const passwordMatched = await compare(password, teacherExist.password);
-&nbsp;
-    if (!passwordMatched) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    const passwordMatched = await compare(password, teacherExist.password);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    if (!passwordMatched) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError('Nome e/ou senha incorreta');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    if (jwtConfig &amp;&amp; jwtConfig.secret !== undefined) {
-      const { secret, expiresIn } = jwtConfig;
-      const token = sign({}, secret, {
-        subject: String(teacherExist.id),
-        expiresIn,
-      });
-&nbsp;
-      return {
-        id: teacherExist.id,
-        teacherCode: teacherExist.teacherCode,
-        schoolId: teacherExist.schoolId,
-        token,
-      };
-    }
-  }
+<span class="cstat-no" title="statement not covered" >    if (jwtConfig &amp;&amp; jwtConfig.secret !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >      const { secret, expiresIn } = jwtConfig;</span>
+<span class="cstat-no" title="statement not covered" >      const token = sign({}, secret, {</span>
+<span class="cstat-no" title="statement not covered" >        subject: String(teacherExist.id),</span>
+<span class="cstat-no" title="statement not covered" >        expiresIn,</span>
+<span class="cstat-no" title="statement not covered" >      });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+<span class="cstat-no" title="statement not covered" >        id: teacherExist.id,</span>
+<span class="cstat-no" title="statement not covered" >        teacherCode: teacherExist.teacherCode,</span>
+<span class="cstat-no" title="statement not covered" >        schoolId: teacherExist.schoolId,</span>
+<span class="cstat-no" title="statement not covered" >        token,</span>
+<span class="cstat-no" title="statement not covered" >      };</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -187,7 +187,7 @@ export class TeacherSessionService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T03:06:56.604Z
+                at 2024-02-21T05:25:27.566Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

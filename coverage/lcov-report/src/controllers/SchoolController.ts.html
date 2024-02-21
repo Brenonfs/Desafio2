@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.15% </span>
+                <span class="strong">66.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/65</span>
+                <span class='fraction'>43/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.15% </span>
+                <span class="strong">66.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/65</span>
+                <span class='fraction'>43/65</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -154,40 +154,40 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -233,26 +233,26 @@ export class SchoolController {
 &nbsp;
     res.json({ result });
   };
-  viewPublic = async (req: Request, res: Response) =&gt; {
-    const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);
-    if (!validatedSchoolSchema.success) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+  viewPublic = <span class="fstat-no" title="function not covered" >async (req: Request, res: Response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const validatedSchoolSchema = schoolViewSchema.safeParse(req.body);</span>
+<span class="cstat-no" title="statement not covered" >    if (!validatedSchoolSchema.success) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Não foi possível visualizar escola.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const result = await this.viewSchoolPublicService.execute(validatedSchoolSchema.data.profileName);
-    res.json({ result });
-  };
-  view = async (req: Request, res: Response) =&gt; {
-    const schoolId = (req as any).school<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d;
-    if (schoolId === undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    const result = await this.viewSchoolPublicService.execute(validatedSchoolSchema.data.profileName);</span>
+<span class="cstat-no" title="statement not covered" >    res.json({ result });</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
+  view = <span class="fstat-no" title="function not covered" >async (req: Request, res: Response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const schoolId = (req as any).school?.id;</span>
+<span class="cstat-no" title="statement not covered" >    if (schoolId === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError('Usuário não está autenticado.');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const result = await this.viewSchoolService.execute(schoolId);
-    res.json({ result });
-  };
-  listAdmin = async (req: Request, res: Response) =&gt; {
-    const result = await this.listAdminSchoolService.execute();
-    res.json({ result });
-  };
+<span class="cstat-no" title="statement not covered" >    const result = await this.viewSchoolService.execute(schoolId);</span>
+<span class="cstat-no" title="statement not covered" >    res.json({ result });</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
+  listAdmin = <span class="fstat-no" title="function not covered" >async (req: Request, res: Response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const result = await this.listAdminSchoolService.execute();</span>
+<span class="cstat-no" title="statement not covered" >    res.json({ result });</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
   listPublic = <span class="fstat-no" title="function not covered" >async (req: Request, res: Response) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    const result = await this.listPublicSchoolService.execute();</span>
 <span class="cstat-no" title="statement not covered" >    res.json({ result });</span>
@@ -265,7 +265,7 @@ export class SchoolController {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T03:06:56.604Z
+                at 2024-02-21T05:25:27.566Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">46.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/30</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>14/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">50% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">46.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/30</span>
+                <span class='fraction'>14/30</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,22 +104,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -133,23 +133,23 @@ class CreateTeacherService {
     this.teacherRepository = new TeacherRepository();
   }
 &nbsp;
-  async execute(teacherCode: string, password: string, discipline: string, profileName: string, schoolId: number) {
-    const teacherExists = await this.teacherRepository.findByTeacherCode(teacherCode, schoolId);
-    if (teacherExists) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+  async <span class="fstat-no" title="function not covered" >execute(teacherCode: string, password: string, discipline: string, profileName: string, schoolId: number) {</span>
+<span class="cstat-no" title="statement not covered" >    const teacherExists = await this.teacherRepository.findByTeacherCode(teacherCode, schoolId);</span>
+<span class="cstat-no" title="statement not covered" >    if (teacherExists) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new UnauthorizedError(`Este nome já está cadastrado.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const createTeacher = await this.teacherRepository.saveTeacher(
-      teacherCode,
-      password,
-      profileName,
-      discipline,
-      schoolId,
-    );
-    if (!createTeacher) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    const createTeacher = await this.teacherRepository.saveTeacher(</span>
+<span class="cstat-no" title="statement not covered" >      teacherCode,</span>
+<span class="cstat-no" title="statement not covered" >      password,</span>
+<span class="cstat-no" title="statement not covered" >      profileName,</span>
+<span class="cstat-no" title="statement not covered" >      discipline,</span>
+<span class="cstat-no" title="statement not covered" >      schoolId,</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
+<span class="cstat-no" title="statement not covered" >    if (!createTeacher) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new NotFoundError(`Não foi possível criar professor com essas especificações.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    return createTeacher;
-  }
+<span class="cstat-no" title="statement not covered" >    return createTeacher;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
 export { CreateTeacherService };
@@ -160,7 +160,7 @@ export { CreateTeacherService };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T03:06:56.604Z
+                at 2024-02-21T05:25:27.566Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

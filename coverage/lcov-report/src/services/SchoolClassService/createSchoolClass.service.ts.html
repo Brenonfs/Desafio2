@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.44% </span>
+                <span class="strong">38.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/36</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>14/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.44% </span>
+                <span class="strong">50% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">38.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/36</span>
+                <span class='fraction'>14/36</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,28 +110,28 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -145,29 +145,29 @@ class CreateSchoolClassService {
     this.schoolClassRepository = new SchoolClassRepository();
   }
 &nbsp;
-  async execute(
-    discipline: string,
-    year: number,
-    numberClass: number,
-    dayOfWeek: string,
-    time: string,
-    schoolId: number,
-    teacherId: number | null,
-  ) {
-    const createdClass = await this.schoolClassRepository.saveSchoolClass(
-      discipline,
-      year,
-      numberClass,
-      dayOfWeek,
-      time,
-      schoolId,
-      teacherId,
-    );
-    if (!createdClass) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+  async <span class="fstat-no" title="function not covered" >execute(</span>
+<span class="cstat-no" title="statement not covered" >    discipline: string,</span>
+<span class="cstat-no" title="statement not covered" >    year: number,</span>
+<span class="cstat-no" title="statement not covered" >    numberClass: number,</span>
+<span class="cstat-no" title="statement not covered" >    dayOfWeek: string,</span>
+<span class="cstat-no" title="statement not covered" >    time: string,</span>
+<span class="cstat-no" title="statement not covered" >    schoolId: number,</span>
+<span class="cstat-no" title="statement not covered" >    teacherId: number | null,</span>
+<span class="cstat-no" title="statement not covered" >  ) {</span>
+<span class="cstat-no" title="statement not covered" >    const createdClass = await this.schoolClassRepository.saveSchoolClass(</span>
+<span class="cstat-no" title="statement not covered" >      discipline,</span>
+<span class="cstat-no" title="statement not covered" >      year,</span>
+<span class="cstat-no" title="statement not covered" >      numberClass,</span>
+<span class="cstat-no" title="statement not covered" >      dayOfWeek,</span>
+<span class="cstat-no" title="statement not covered" >      time,</span>
+<span class="cstat-no" title="statement not covered" >      schoolId,</span>
+<span class="cstat-no" title="statement not covered" >      teacherId,</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
+<span class="cstat-no" title="statement not covered" >    if (!createdClass) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new NotFoundError(`Não foi possível criar turma com essas especificações.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    return createdClass;
-  }
+<span class="cstat-no" title="statement not covered" >    return createdClass;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
 export { CreateSchoolClassService };
@@ -178,7 +178,7 @@ export { CreateSchoolClassService };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T03:06:56.604Z
+                at 2024-02-21T05:25:27.566Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

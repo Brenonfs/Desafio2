@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.3% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/26</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>13/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.3% </span>
+                <span class="strong">50% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/26</span>
+                <span class='fraction'>13/26</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,19 +100,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { NotFoundError } from '../../helpers/api-erros';
@@ -125,20 +125,20 @@ class ViewByIDSchoolClassService {
     this.schoolClassRepository = new SchoolClassRepository();
   }
 &nbsp;
-  async execute(id: number) {
-    const classExists = await this.schoolClassRepository.findByID(id);
-    if (!classExists) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+  async <span class="fstat-no" title="function not covered" >execute(id: number) {</span>
+<span class="cstat-no" title="statement not covered" >    const classExists = await this.schoolClassRepository.findByID(id);</span>
+<span class="cstat-no" title="statement not covered" >    if (!classExists) {</span>
 <span class="cstat-no" title="statement not covered" >      throw new NotFoundError(`Não há turma com essas especificações.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-    const studentCount = classExists.students.length;
-    const availableSeats = Math.max(0, 40 - studentCount);
-    const classWithStudentCount = {
-      ...classExists,
-      studentCount,
-      availableSeats,
-    };
-    return classWithStudentCount;
-  }
+<span class="cstat-no" title="statement not covered" >    const studentCount = classExists.students.length;</span>
+<span class="cstat-no" title="statement not covered" >    const availableSeats = Math.max(0, 40 - studentCount);</span>
+<span class="cstat-no" title="statement not covered" >    const classWithStudentCount = {</span>
+<span class="cstat-no" title="statement not covered" >      ...classExists,</span>
+<span class="cstat-no" title="statement not covered" >      studentCount,</span>
+<span class="cstat-no" title="statement not covered" >      availableSeats,</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+<span class="cstat-no" title="statement not covered" >    return classWithStudentCount;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 export { ViewByIDSchoolClassService };
 &nbsp;</pre></td></tr></table></pre>
@@ -148,7 +148,7 @@ export { ViewByIDSchoolClassService };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-20T03:06:56.604Z
+                at 2024-02-21T05:25:27.566Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
