@@ -12,7 +12,7 @@ export async function createCommunication(numberOfCommunication: number) {
   const communications = [];
   for (let i = 0; i < numberOfCommunication; i++) {
     const messageType = faker.internet.userName();
-    const message = faker.name.findName();
+    const message = faker.lorem.sentence();
     const id = null;
     const schoolId = null;
     const timestamp = null;
