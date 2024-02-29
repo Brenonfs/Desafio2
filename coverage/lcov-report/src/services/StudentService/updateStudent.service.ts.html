@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.29% </span>
+                <span class="strong">72.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/47</span>
+                <span class='fraction'>34/47</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">63.63% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>7/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.29% </span>
+                <span class="strong">72.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/47</span>
+                <span class='fraction'>34/47</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -125,35 +125,35 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -171,36 +171,36 @@ class UpdateStudentService {
     this.studentRepository = new StudentRepository();
   }
 &nbsp;
-  async <span class="fstat-no" title="function not covered" >execute(registration: string, classId: number, schoolId: number) {</span>
-<span class="cstat-no" title="statement not covered" >    const studentExists = await this.studentRepository.findByRegistration(registration, schoolId);</span>
-<span class="cstat-no" title="statement not covered" >    if (!studentExists) {</span>
+  async execute(registration: string, classId: number, schoolId: number) {
+    const studentExists = await this.studentRepository.findByRegistration(registration, schoolId);
+    if (!studentExists) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Este aluno não foi encontrado.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    const classExists = await this.schoolClassRepository.findByID(classId);</span>
-<span class="cstat-no" title="statement not covered" >    if (!classExists || classExists.students.length &gt;= this.maxStudentsPerClass) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Esta turma não foi encontrada ou já está lotada.`);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    const isStudentInSameSchoolClass = studentExists.schoolClass.some((classItem) =&gt; classItem.id === classId);</span>
-<span class="cstat-no" title="statement not covered" >    if (isStudentInSameSchoolClass) {</span>
+    const classExists = await this.schoolClassRepository.findByID(classId);
+    if (!classExists || classExists.students.length &gt;= this.maxStudentsPerClass) {
+      throw new BadRequestError(`Esta turma não foi encontrada ou já está lotada.`);
+    }
+    const isStudentInSameSchoolClass = studentExists.schoolClass.some((classItem) =&gt; classItem.id === classId);
+    if (isStudentInSameSchoolClass) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Este aluno já está cadastrado nesta turma.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    const isStudentInOtherSchoolClassSameTime = studentExists.schoolClass.some((studentSchoolClass) =&gt; {</span>
+    const isStudentInOtherSchoolClassSameTime = studentExists.schoolClass.some((studentSchoolClass) =&gt; {
 <span class="cstat-no" title="statement not covered" >      return (</span>
 <span class="cstat-no" title="statement not covered" >        studentSchoolClass.dayOfWeek === classExists.dayOfWeek &amp;&amp;</span>
 <span class="cstat-no" title="statement not covered" >        studentSchoolClass.time === classExists.time &amp;&amp;</span>
 <span class="cstat-no" title="statement not covered" >        studentSchoolClass.id !== classExists.id</span>
 <span class="cstat-no" title="statement not covered" >      );</span>
-<span class="cstat-no" title="statement not covered" >    });</span>
-<span class="cstat-no" title="statement not covered" >    if (isStudentInOtherSchoolClassSameTime) {</span>
+    });
+    if (isStudentInOtherSchoolClassSameTime) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequestError(`Este aluno já está cadastrado em outra turma no mesmo dia e horário.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    const schoolClassId = classExists.id;</span>
-<span class="cstat-no" title="statement not covered" >    const updatedStudent = await this.studentRepository.updateStudent(registration, schoolClassId, schoolId);</span>
-<span class="cstat-no" title="statement not covered" >    if (!updatedStudent) {</span>
+    const schoolClassId = classExists.id;
+    const updatedStudent = await this.studentRepository.updateStudent(registration, schoolClassId, schoolId);
+    if (!updatedStudent) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new NotFoundError(`Não foi possivel matricular o aluno.`);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return updatedStudent;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+    return updatedStudent;
+  }
 }
 &nbsp;
 export { UpdateStudentService };
@@ -211,7 +211,7 @@ export { UpdateStudentService };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-21T05:25:27.566Z
+                at 2024-02-29T00:26:03.485Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

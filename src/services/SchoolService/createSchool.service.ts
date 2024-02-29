@@ -19,14 +19,11 @@ class CreateSchoolService {
     try {
       cepResult = await cepPromise(cep);
     } catch (cepError) {
-      console.log('Erro ao obter o CEP:');
       throw new Error('Ocorreu um erro ao obter o CEP.');
     }
     if (schoolExists) {
-      console.log('Já tem o cep');
       throw new UnauthorizedError(`Este endereco já está cadastrado.`);
     }
-    console.log('não tem o cep');
 
     const createSchool = await this.schoolRepository.saveSchool(
       schoolCode,
